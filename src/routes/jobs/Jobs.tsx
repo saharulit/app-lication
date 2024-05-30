@@ -16,7 +16,7 @@ export default function Jobs() {
 
   return (
     <div>
-      <h1>Jobs</h1>
+      <h1 className="text-3xl font-bold underline">Jobs</h1>
       {jobs.map((job, index) => (
         <Card key={index} title={job.title} description={job.description} />
       ))}
