@@ -13,7 +13,7 @@ const sizes = {
 };
 
 const modes = {
-  primary: 'app-color-deep-dark-blue hover:app-color-blue',
+  primary: 'app-color-deep-dark-blue hover:app-color-blue font-semibold',
   secondary: 'app-color-blue hover:app-color-deep-dark-blue',
 };
 
