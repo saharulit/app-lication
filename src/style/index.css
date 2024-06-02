@@ -36,4 +36,10 @@
   .app-bg-light-purple {
     background-color: #E8D9EC;
   }
+  .app-color-blue {
+    color: #5271FF;
+  }
+  .app-bg-blue {
+    background-color: #5271FF;
+  }
 }
