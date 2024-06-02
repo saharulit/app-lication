@@ -4,6 +4,8 @@ export interface AppliedJob {
   company: Company;
   applicationLink?: string;
   applicationDate?: Date;
+  status: 'applied' | 'interview' | 'rejected' | 'accepted';
+  comments?: string;
 }
 
 export interface Company {
