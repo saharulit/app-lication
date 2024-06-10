@@ -1,19 +1,50 @@
 import {
   Card as MuiCard,
   CardContent,
+  Avatar,
+  Chip,
 } from '@mui/material';
+import { AppliedJob } from '../../core/entities/appliedJob';
+import Link from '../Link/Link';
 
-interface CardProps {
-  title: string;
-  description: string;
-}
+export default function Card(cardProps: AppliedJob) {
 
-export default function Card(cardProps: CardProps) {
+  const getChipColor = (status: string) => {
+    switch (status) {
+      case 'Applied':
+        return 'bg-gray';
+      case 'Interview':
+        return 'bg-orange';
+      case 'Rejected':
+        return 'bg-red';
+      case 'Hired':
+        return 'bg-green';
+      default:
+        return 'bg-gray';
+    }
+  }
+
   return (
-    <MuiCard sx={{ maxWidth: 345 }}>
+    <MuiCard sx={{ minWidth: 300, minHeight: 200, borderRadius: 8 }}>
       <CardContent>
-        <h2>{cardProps.title}</h2>
-        <p>{cardProps.description}</p>
+        <div className="flex flex-col gap-4">
+          <Link mode="primary" size="large" href="#" target="_self" className='max-w-60 line-clamp-2 min-h-14'>
+            {cardProps.title}
+          </Link>
+          <div className="flex flex-row items-center gap-2 bg-orange">
+            <Avatar alt="company-logo" src={cardProps.company?.logo} sx={{ width: 27, height: 27 }}>
+              <div className="text-xs font-semibold">{cardProps.company?.name?.charAt(0)}</div>
+            </Avatar>
+            <div className="text-xs font-semibold">{cardProps.company?.name}</div>
+          </div>
+          <div className="line-clamp-4 max-w-60 min-h-16">
+            <p className="text-xs">{cardProps.company?.description}</p>
+          </div>
+          <Chip
+            className={`self-end !${getChipColor(cardProps.status)}`}
+            label={cardProps.status}
+          />
+        </div>
       </CardContent>
     </MuiCard>
   );
