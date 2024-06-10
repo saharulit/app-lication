@@ -14,11 +14,12 @@ export interface Company {
   userId: string;
   name: string;
   description?: string;
+  logo?: string;
 }
 
 export enum JobStatus {
-  APPLIED = 'applied',
-  INTERVIEW = 'interview',
-  REJECTED = 'rejected',
-  ACCEPTED = 'accepted',
+  APPLIED = 'Applied',
+  INTERVIEW = 'Interview',
+  REJECTED = 'Rejected',
+  HIRED = 'Hired',
 }
