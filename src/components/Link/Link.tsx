@@ -4,6 +4,7 @@ interface LinkProps {
   href: string;
   target: string;
   children: React.ReactNode;
+  className?: string;
 }
 
 const sizes = {
@@ -17,9 +18,9 @@ const modes = {
   secondary: 'app-color-blue hover:app-color-deep-dark-blue',
 };
 
-export default function Link({ mode, size, href, target, children }: LinkProps) {
+export default function Link({ mode, size, href, target, children, className }: LinkProps) {
   return (
-    <a href={href} target={target} className={`${sizes[size]} ${modes[mode]} underline`}>
+    <a href={href} target={target} className={`${sizes[size]} ${modes[mode]} underline ${className || ''}`}>
       {children}
     </a>
   );
