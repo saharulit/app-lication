@@ -42,4 +42,13 @@
   .app-bg-blue {
     background-color: #5271FF;
   }
+  .app-bg-light-gray {
+    background-color: #F8F8F8;
+  }
+  .app-color-white {
+    color: #FFFFFF;
+  }
+  .app-bg-white {
+    background-color: #FFFFFF;
+  }
 }
