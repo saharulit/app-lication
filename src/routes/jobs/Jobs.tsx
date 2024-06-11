@@ -1,25 +1,36 @@
-import { useEffect, useState } from 'react';
+import { SetStateAction, useEffect, useState } from 'react';
 import { AppliedJob } from '../../core/entities/appliedJob';
 import { jobService } from '../../core/services';
 import { Card } from '../../components/CardList';
+import Input from '../../components/Input/Input';
+
 
 export default function Jobs() {
   const [jobs, setJobs] = useState([] as AppliedJob[]);
+  const [search, setSearch] = useState('');
+
+  const onSearchChange = (e: { target: { value: SetStateAction<string>; }; }) => {
+    setSearch(e.target.value);
+    //TODO: Implement search using url query params
+  }
 
   useEffect(() => {
     async function fetchData() {
-      const fetchedJobs = await jobService.appliedJobList();
+      const fetchedJobs = await jobService.appliedJobList(search);
       setJobs(fetchedJobs);
     }
     fetchData();
-  }, []);
+  }, [search]);
 
   return (
-    <div className="flex flex-row gap-2">
-      <h1 className="text-3xl font-bold underline">Jobs</h1>
-      {jobs.map((job, index) => (
-        <Card key={index} {...job}/>
-      ))}
+    <div className="flex flex-col gap-4">
+      <h1 className="text-3xl font-bold underline">My applications</h1>
+      <Input name="search" type="text" placeholder="Search" onChange={onSearchChange}/>
+      <div className='flex flex-wrap gap-4'>
+        {jobs.map((job, index) => (
+          <Card key={index} {...job}/>
+        ))}
+      </div>
     </div>
   );
 }
