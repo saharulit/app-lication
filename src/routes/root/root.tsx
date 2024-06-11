@@ -11,7 +11,7 @@ const Root = () => {
           <JobCards path="/appliedJobs" />
           {/* <User path="users/:userId" /> */}
         </App>
-      </Router>,
+      </Router>
   );
 }
 
