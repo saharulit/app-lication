@@ -26,11 +26,14 @@ export default function Jobs() {
     <div className="flex flex-col gap-4">
       <h1 className="text-3xl font-bold underline">My applications</h1>
       <Input name="search" type="text" placeholder="Search" onChange={onSearchChange}/>
-      <div className='flex flex-wrap gap-4'>
-        {jobs.map((job, index) => (
-          <Card key={index} {...job}/>
-        ))}
-      </div>
+      { jobs.length > 0 ?
+        <div className='flex flex-wrap gap-4'>
+          {jobs.map((job, index) => (
+            <Card key={index} {...job}/>
+          ))}
+        </div> : 
+        <p className="text-lg">No jobs found</p>
+      }
     </div>
   );
 }
