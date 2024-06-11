@@ -23,9 +23,10 @@ export const appliedJobMock: AppliedJob[] = [
     company: {
       id: '2',
       userId: '1',
-      name: 'Facebook',
+      name: 'NetApp',
       description:
         'Social media platform for connecting people with friends and family online. Founded by Mark Zuckerberg in 2004 at Harvard University.',
+      logo: 'https://media.licdn.com/dms/image/D4E0BAQGlpQtsuRCeNg/company-logo_100_100/0/1698109057060/netapp_logo?e=1726099200&v=beta&t=Qlcih1AwEUG4G88MRCqWNYsYem6MQM5S4VEPDyo_PBA',
     },
     applicationLink: 'https://facebook.com',
     applicationDate: new Date(),
@@ -38,9 +39,10 @@ export const appliedJobMock: AppliedJob[] = [
     company: {
       id: '2',
       userId: '1',
-      name: 'Facebook',
+      name: 'CHEQ',
       description:
         'Social media platform for connecting people with friends and family online. Founded by Mark Zuckerberg in 2004 at Harvard University.',
+      logo: 'https://media.licdn.com/dms/image/D4E0BAQHC95gwuCRwuw/company-logo_100_100/0/1717398999694/cheq_ai_logo?e=1726099200&v=beta&t=bNQFcXnguoS8vQrpHnsWB9v7T6yl1dLg0Kwgeh2st8g',
     },
     applicationLink: 'https://facebook.com',
     applicationDate: new Date(),
