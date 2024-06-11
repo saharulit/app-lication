@@ -1,12 +1,10 @@
 import './App.css'
-import Jobs from './routes/jobs/Jobs'
+import MainLayout from './components/MainLayout/MainLayout'
 
 function App() {
 
   return (
-    <>
-     <Jobs />
-    </>
+    <MainLayout />
   )
 }
 
