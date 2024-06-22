@@ -1,7 +1,7 @@
 import { SetStateAction, useEffect, useState } from 'react';
 import { AppliedJob } from '../../core/entities/appliedJob';
 import { jobService } from '../../core/services';
-import { Card } from '../../components/CardList';
+import Card  from '../../components/Card/Card';
 import Input from '../../components/Input/Input';
 
 
