@@ -1,15 +1,12 @@
-# App-lication
-
 ![App-lication Logo](/src/assets/logo-full-white.svg)
 
 Welcome to **App-lication**! This web application is designed to help users manage their job-seeking progress efficiently. Built with modern technologies, App-lication offers a smooth and responsive user experience.
 
 ## Table of Contents
 
-- [App-lication](#app-lication)
-  - [Table of Contents](#table-of-contents)
-  - [Features](#features)
-  - [Technologies Used](#technologies-used)
+- [Table of Contents](#table-of-contents)
+- [Features](#features)
+- [Technologies Used](#technologies-used)
 
 ## Features
 
