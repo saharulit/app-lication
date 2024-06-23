@@ -22,7 +22,7 @@ Welcome to **App-lication**! This web application is designed to help users mana
 - **React**: A JavaScript library for building user interfaces.
 - **TypeScript**: A typed superset of JavaScript that compiles to plain JavaScript.
 - **Vite**: A fast build tool and development server for modern web projects.
-- - **Material-UI**: A popular React UI framework that provides pre-designed components.
+- **Material-UI**: A popular React UI framework that provides pre-designed components.
 - **ESLint**: A tool for identifying and fixing linting errors in JavaScript code.
 - **Tailwind CSS**: A utility-first CSS framework for rapid UI development.
 - **Vitest**: A testing framework for Vite projects.
