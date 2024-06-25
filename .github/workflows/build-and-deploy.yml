@@ -27,6 +27,6 @@ jobs:
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@4.1.5  # Use a suitable action for deploying to GitHub Pages
         with:
-          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}  # Replace with your GitHub token stored in secrets
+          ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Replace with your GitHub token stored in secrets
           BRANCH: gh-pages  # Branch to deploy to
           FOLDER: dist  # Folder containing the built artifacts
