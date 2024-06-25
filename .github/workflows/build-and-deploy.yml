@@ -24,14 +24,12 @@ jobs:
       - name: Build the project
         run: npm run build
 
-      - name: List build directory contents for debugging
-        run: ls -la ./build  # Adjust if your build output directory is different
-
       - name: Upload build artifacts
         uses: actions/upload-artifact@v3
         with:
           name: build
-          path: ./build  # Adjust if your build output directory is different
+          path: |
+            ./dist  # Adjust the path if your build output directory is different
 
   deploy:
     needs: build
@@ -50,21 +48,15 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: List current directory for debugging
-        run: ls -la  # List the current directory contents for debugging
-
       - name: Download build artifacts
         uses: actions/download-artifact@v3
         with:
           name: build
-          path: ./build  # Ensure this matches the output directory used in the upload step
-
-      - name: List downloaded build artifacts for debugging
-        run: ls -la ./build  # List the downloaded build artifacts for debugging
+          path: ./dist  # This path should match the output directory used in the upload step
 
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v3
         with:
           branch: gh-pages  # Change this if you use a different branch for GitHub Pages
-          folder: ./build  # This should match the build output directory
+          folder: ./build  # This should match the build output directory.
