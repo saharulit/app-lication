@@ -17,4 +17,5 @@ export default {
     },
   },
   plugins: [],
+  safelist: ['!app-bg-red', '!app-bg-orange', '!app-bg-green', '!app-bg-gray']
 }
