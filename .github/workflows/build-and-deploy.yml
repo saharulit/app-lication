@@ -43,4 +43,4 @@ jobs:
 
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4 # or specific version
+        uses: actions/deploy-pages@v3 # or specific version
