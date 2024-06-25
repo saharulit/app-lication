@@ -59,4 +59,4 @@ jobs:
         uses: actions/deploy-pages@v3
         with:
           branch: gh-pages  # Change this if you use a different branch for GitHub Pages
-          folder: ./build  # This should match the build output directory
+          folder: ./build  # This should match the build output directory.
