@@ -11,8 +11,6 @@ describe('AppliedJobService', () => {
   const service = new AppliedJobService(mockAdapter);
 
   it('should return list of applied jobs', async () => {
-    mockAdapter.appliedJobList.mockResolvedValueOnce(appliedJobMock);
-
     const jobList = await service.appliedJobList();
     expect(jobList).toEqual(appliedJobMock);
     expect(mockAdapter.appliedJobList).toHaveBeenCalledWith(undefined);
@@ -25,7 +23,6 @@ describe('AppliedJobService', () => {
         job.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         job.company.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
-    mockAdapter.appliedJobList.mockResolvedValueOnce(filteredJobList);
 
     const jobList = await service.appliedJobList(searchQuery);
     expect(jobList).toEqual(filteredJobList);
