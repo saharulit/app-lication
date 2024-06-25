@@ -27,9 +27,10 @@ jobs:
       - name: Build the project
         run: npm run build
 
-      - name: Deploy to GitHub Pages
-        run: |
-          npm install -g gh-pages
-          gh-pages -d build
-        env:
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@3.6.2
+        with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: gh-pages # The branch the action should deploy to.
+          FOLDER: build # The folder that the build script generates files.
+          CLEAN: true # Automatically remove deleted files from the deploy branch
