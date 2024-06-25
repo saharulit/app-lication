@@ -24,26 +24,8 @@ jobs:
       - name: Build the project
         run: npm run build
 
-  deploy:
-    needs: build
-
-    permissions:
-      pages: write
-      id-token: write
-
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
       - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v3
+        uses: actions/gh-pages@v3
         with:
-          branch: gh-pages  # Change this if you use a different branch for GitHub Pages
-          folder: ./dist  # This should match the build output directory.
+          build_dir: dist  # Folder containing the built artifacts
+          github_token: ${{ secrets.GITHUB_TOKEN }}
