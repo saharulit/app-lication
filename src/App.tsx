@@ -1,5 +1,5 @@
 import './App.css'
-import MainLayout from './routes-main/+layout/MainLayout'
+import MainLayout from './routes/+layout/MainLayout'
 
 function App() {
 
