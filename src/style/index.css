@@ -51,4 +51,10 @@
   .app-bg-white {
     background-color: #FFFFFF;
   }
+  .app-color-orange {
+    color: #F8A73C;
+  }
+  .app-bg-orange {
+    background-color: #F8A73C;
+  }
 }
