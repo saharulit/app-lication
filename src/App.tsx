@@ -2,10 +2,10 @@ import { CookiesProvider, useCookies } from 'react-cookie';
 
 import './App.css';
 import Login from './routes/login/Login';
-import Root from './routes/root/Root';
+import Root from './routes/root/Root1';
 
 function App() {
-  const [cookies] = useCookies(['user']); //TODO: Replace with user srote
+  const [cookies] = useCookies(['user']); //TODO: Replace with user store
   console.log('cookies.user', cookies.user);
   return (
     <CookiesProvider>
