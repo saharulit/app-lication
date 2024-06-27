@@ -39,7 +39,7 @@ const JobForm = () => (
         errors,
         touched,
         handleChange,
-        handleBlur,
+        // handleBlur,
         handleSubmit,
         isSubmitting,
       }) => (
