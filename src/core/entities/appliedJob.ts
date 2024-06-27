@@ -1,5 +1,5 @@
 export interface AppliedJob {
-  id: string;
+  id?: string;
   title: string;
   description?: string;
   company: Company;
@@ -10,8 +10,8 @@ export interface AppliedJob {
 }
 
 export interface Company {
-  id: string;
-  userId: string;
+  id?: string;
+  userId: string; // ??
   name: string;
   description?: string;
   logo?: string;
