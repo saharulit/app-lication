@@ -1,4 +1,4 @@
-import MainLayout from '../+layout/MainLayout1';
+import MainLayout from '../+layout/MainLayout';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Jobs from '../jobs/Jobs';
 
