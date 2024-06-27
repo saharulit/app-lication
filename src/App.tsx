@@ -1,11 +1,17 @@
-import './App.css'
-import MainLayout from './routes/+layout/MainLayout'
+import { CookiesProvider, useCookies } from 'react-cookie';
+
+import './App.css';
+import Login from './routes/login/Login';
+import Root from './routes/root/Root1';
 
 function App() {
-
+  const [cookies] = useCookies(['user']); //TODO: Replace with user srote
+  console.log('cookies.user', cookies.user);
   return (
-    <MainLayout />
-  )
+    <CookiesProvider>
+      <div>{cookies.user ? <Root /> : <Login />}</div>
+    </CookiesProvider>
+  );
 }
 
-export default App
+export default App;
