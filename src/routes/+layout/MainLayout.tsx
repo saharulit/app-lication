@@ -1,11 +1,17 @@
 import { useCookies } from 'react-cookie';
+import { ReactNode } from 'react';
 import NavigationBar from '../../components/NavigationBar/NavigationBar';
 
-function MainLayout({ children }): JSX.Element {
+interface MainLayoutProps {
+  children: ReactNode;
+}
+
+function MainLayout({ children }: MainLayoutProps): JSX.Element {
   const [, setCookie] = useCookies(['user']);
   const handleLogOut = () => {
     setCookie('user', false, { path: '/' });
   };
+
   return (
     <>
       <NavigationBar onLogOut={handleLogOut} />
