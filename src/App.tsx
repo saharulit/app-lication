@@ -1,16 +1,12 @@
-import { CookiesProvider, useCookies } from 'react-cookie';
-
 import './App.css';
-import Login from './routes/login/Login';
+import { AuthProvider } from './core/contexts/authContext';
 import Root from './routes/root/Root';
 
 function App() {
-  const [cookies] = useCookies(['user']); //TODO: Replace with user store
-  console.log('cookies.user', cookies.user);
   return (
-    <CookiesProvider>
-      <div>{cookies.user ? <Root /> : <Login />}</div>
-    </CookiesProvider>
+    <AuthProvider>
+      <Root />
+    </AuthProvider>
   );
 }
 
