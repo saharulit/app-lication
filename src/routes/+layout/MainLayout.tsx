@@ -1,20 +1,23 @@
-import { useCookies } from 'react-cookie';
 import { ReactNode } from 'react';
 import NavigationBar from '../../components/NavigationBar/NavigationBar';
+import { useAuth } from '../../core/contexts/authContext';
+import { useNavigate } from 'react-router-dom';
 
 interface MainLayoutProps {
   children: ReactNode;
 }
 
 function MainLayout({ children }: MainLayoutProps): JSX.Element {
-  const [, setCookie] = useCookies(['user']);
-  const handleLogOut = () => {
-    setCookie('user', false, { path: '/' });
+  const { logout, user } = useAuth();
+  const navigate = useNavigate();
+  const handleLogOut = async () => {
+    await logout();
+    navigate('/login');
   };
 
   return (
     <>
-      <NavigationBar onLogOut={handleLogOut} />
+      {user && <NavigationBar onLogOut={handleLogOut} />}
       <div className="p-10">{children}</div>
     </>
   );
