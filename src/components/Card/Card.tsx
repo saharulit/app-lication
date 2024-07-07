@@ -19,7 +19,7 @@ export default function Card(cardProps: AppliedJob) {
   };
 
   return (
-    <MuiCard sx={{ minWidth: 300, minHeight: 200, borderRadius: 8 }}>
+    <MuiCard sx={{ minWidth: 300, minHeight: 200, borderRadius: 2 }}>
       <CardContent>
         <div className="flex flex-col gap-4">
           <Link

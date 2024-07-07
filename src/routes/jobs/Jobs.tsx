@@ -23,7 +23,7 @@ export default function Jobs() {
 
   return (
     <div className="flex flex-col gap-4">
-      <h1 className="text-3xl font-bold underline">My applications</h1>
+      <h1 className="text-3xl font-bold">My applications</h1>
       <div className="flex flex-col gap-4">
         <ToolBar onSearchChange={onSearchChange} />
         {jobs.length > 0 ? (

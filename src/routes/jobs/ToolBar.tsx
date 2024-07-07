@@ -17,6 +17,7 @@ const ToolBar: React.FC<ToolBarProps> = ({ onSearchChange }) => {
           onChange={onSearchChange}
         />
       </div>
+      <div className="grow" />
       <Button>+ Add</Button>
     </div>
   );
