@@ -18,7 +18,7 @@ const Input: React.FC<InputProps> = ({
       <input
         type={type}
         placeholder={placeholder}
-        className="app-bg-white rounded-md p-3 border app-bg-border"
+        className="app-bg-white rounded-lg p-3 border app-border-gray"
         {...rest}
       />
     </div>

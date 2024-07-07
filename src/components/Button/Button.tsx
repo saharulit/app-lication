@@ -24,8 +24,7 @@ const Button: React.FC<ButtonProps> = ({
 }) => (
   <ThemeProvider theme={theme}>
     <ButtonMui
-      style={{ textTransform: 'none' }}
-      className="font-sm"
+      style={{ textTransform: 'none' }} //Material UI button defaults the text within the button to uppercase.
       variant={mode === 'primary' ? 'contained' : 'outlined'}
       color={mode}
       {...props}
