@@ -11,7 +11,7 @@ interface JobsProps {
   openEditModal?: boolean;
 }
 
-const Jobs: React.FC<JobsProps> = ({ openEditModal: openEditModel }) => {
+const Jobs: React.FC<JobsProps> = ({ openEditModal: openEditModal }) => {
   const [jobs, setJobs] = useState([] as AppliedJob[]);
   const [search, setSearch] = useState('');
   const navigate = useNavigate();
@@ -47,7 +47,7 @@ const Jobs: React.FC<JobsProps> = ({ openEditModal: openEditModel }) => {
           <p className="text-lg">No jobs found</p>
         )}
       </div>
-      <EditJobModal open={openEditModel || false} />
+      <EditJobModal open={openEditModal || false} />
     </div>
   );
 };
