@@ -18,6 +18,13 @@ const Root: React.FC = () => {
         />
         <Route path="/jobs" element={<PrivateRoute component={Jobs} />} />
         <Route
+          path="/jobs/new"
+          element={
+            <PrivateRoute component={Jobs} props={{ openEditModel: true }} />
+          }
+        />
+
+        <Route
           path="/login"
           element={user ? <Navigate to="/jobs" /> : <Login />}
         />
