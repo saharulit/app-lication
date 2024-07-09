@@ -4,7 +4,9 @@ import { useAuth } from '../../core/contexts/authContext';
 
 interface PrivateRouteProps {
   component: React.ComponentType;
-  props?: Record<string, any>; // Optional props
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
+  props?: Record<string, any>;
 }
 
 const PrivateRoute: React.FC<PrivateRouteProps> = ({
