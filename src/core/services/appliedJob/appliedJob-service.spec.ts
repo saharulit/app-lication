@@ -1,6 +1,5 @@
 import { describe, it, expect, vi } from 'vitest';
 import { AppliedJobAdapter } from '../../adapters/job/appliedJob-adapter';
-import { appliedJobMock } from '../../adapters/job/__mocks__/appliedJob-adapter';
 import { AppliedJobService } from './appliedJob-service';
 
 describe('AppliedJobService', () => {
