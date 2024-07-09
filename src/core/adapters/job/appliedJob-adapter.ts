@@ -13,4 +13,8 @@ export class AppliedJobAdapter {
     }
     return appliedJobMock;
   }
+  async addApplication(job: AppliedJob): Promise<{ success: boolean }> {
+    appliedJobMock.push(job);
+    return { success: true };
+  }
 }
