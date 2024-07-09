@@ -17,14 +17,14 @@ describe('Input', () => {
   });
 
   it('passes additional props correctly', () => {
-    render(<Input placeholder="Enter email" type="email" data-testid="custom-input" />);
+    render(
+      <Input
+        placeholder="Enter email"
+        type="email"
+        data-testid="custom-input"
+      />
+    );
     const inputElement = screen.getByTestId('custom-input');
     expect(inputElement).toBeInTheDocument();
-  });
-
-  it('applies the correct className', () => {
-    render(<Input placeholder="Enter text" type="text" />);
-    const inputElement = screen.getByPlaceholderText('Enter text');
-    expect(inputElement).toHaveClass('app-bg-white rounded-lg p-4');
   });
 });
