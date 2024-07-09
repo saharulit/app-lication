@@ -1,6 +1,6 @@
-import { Formik } from 'formik';
+import React from 'react';
+import { Formik, Form } from 'formik';
 import Input from '../../components/Input/Input';
-import Button from '../../components/Button/Button';
 import {
   AppliedJob,
   Company,
@@ -12,44 +12,47 @@ const validateFunction = (values: AppliedJob) => {
   if (!values.title) {
     errors.title = 'Required';
   }
+  if (values.company && !values.company.name) {
+    if (!errors.company) {
+      errors.company = {
+        userId: '',
+        name: '',
+      };
+    }
+    errors.company.name = 'Required';
+  }
   return errors as AppliedJob;
 };
 
-const JobForm = () => (
-  <div>
-    <h1>Form</h1>
+interface JobFormProps {
+  onSubmit: (values: AppliedJob) => void;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  formikRef: React.RefObject<any>;
+}
+
+const JobForm: React.FC<JobFormProps> = ({ onSubmit, formikRef }) => {
+  return (
     <Formik
+      innerRef={formikRef}
       initialValues={
         {
           title: '',
-          company: {} as Company,
+          company: { name: '' } as Company,
           status: JobStatus.APPLIED,
         } as unknown as AppliedJob
       }
       validate={validateFunction}
-      onSubmit={(values: AppliedJob, { setSubmitting }: any) => {
-        setTimeout(() => {
-          alert(JSON.stringify(values, null, 2));
-          setSubmitting(false);
-        }, 400);
+      onSubmit={async (values) => {
+        onSubmit(values);
       }}
     >
-      {({
-        values,
-        errors,
-        touched,
-        handleChange,
-        // handleBlur,
-        handleSubmit,
-        isSubmitting,
-      }) => (
-        <form onSubmit={handleSubmit}>
+      {({ values, errors, touched, handleChange }) => (
+        <Form>
           <div>
             <Input
               type="text"
               name="company.name"
               onChange={handleChange}
-              // onBlur={handleBlur}
               value={values.company.name}
               label="Company"
             />
@@ -62,19 +65,15 @@ const JobForm = () => (
               type="text"
               name="title"
               onChange={handleChange}
-              // onBlur={handleBlur}
               value={values.title}
               label="Job Title"
             />
             {errors.title && touched.title && errors.title}
           </div>
-          <Button type="submit" disabled={isSubmitting}>
-            Submit
-          </Button>
-        </form>
+        </Form>
       )}
     </Formik>
-  </div>
-);
+  );
+};
 
 export default JobForm;

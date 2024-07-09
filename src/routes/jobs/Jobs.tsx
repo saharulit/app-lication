@@ -47,7 +47,10 @@ const Jobs: React.FC<JobsProps> = ({ openEditModal: openEditModal }) => {
           <p className="text-lg">No jobs found</p>
         )}
       </div>
-      <EditJobModal open={openEditModal || false} />
+      <EditJobModal
+        open={openEditModal || false}
+        onClose={() => navigate('/jobs')}
+      />
     </div>
   );
 };
