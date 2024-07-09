@@ -4,9 +4,10 @@ import Button from '../../components/Button/Button';
 
 interface ToolBarProps {
   onSearchChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onAddButton: () => void;
 }
 
-const ToolBar: React.FC<ToolBarProps> = ({ onSearchChange }) => {
+const ToolBar: React.FC<ToolBarProps> = ({ onSearchChange, onAddButton }) => {
   return (
     <div className="flex flex-row w-full gap-3">
       <div className="grow">
@@ -18,7 +19,7 @@ const ToolBar: React.FC<ToolBarProps> = ({ onSearchChange }) => {
         />
       </div>
       <div className="grow" />
-      <Button>+ Add</Button>
+      <Button onClick={onAddButton}>+ Add</Button>
     </div>
   );
 };

@@ -1,12 +1,20 @@
 import { SetStateAction, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import { AppliedJob } from '../../core/entities/appliedJob';
 import { jobService } from '../../core/services';
 import Card from '../../components/Card/Card';
 import ToolBar from './ToolBar';
+import EditJobModal from './EditJobModal';
 
-export default function Jobs() {
+interface JobsProps {
+  openEditModal?: boolean;
+}
+
+const Jobs: React.FC<JobsProps> = ({ openEditModal: openEditModal }) => {
   const [jobs, setJobs] = useState([] as AppliedJob[]);
   const [search, setSearch] = useState('');
+  const navigate = useNavigate();
 
   const onSearchChange = (e: { target: { value: SetStateAction<string> } }) => {
     setSearch(e.target.value);
@@ -25,7 +33,10 @@ export default function Jobs() {
     <div className="flex flex-col gap-4">
       <h1 className="text-3xl font-bold">My applications</h1>
       <div className="flex flex-col gap-4">
-        <ToolBar onSearchChange={onSearchChange} />
+        <ToolBar
+          onSearchChange={onSearchChange}
+          onAddButton={() => navigate('new')}
+        />
         {jobs.length > 0 ? (
           <div className="flex flex-wrap gap-4">
             {jobs.map((job, index) => (
@@ -36,6 +47,12 @@ export default function Jobs() {
           <p className="text-lg">No jobs found</p>
         )}
       </div>
+      <EditJobModal
+        open={openEditModal || false}
+        onClose={() => navigate('/jobs')}
+      />
     </div>
   );
-}
+};
+
+export default Jobs;

@@ -1,5 +1,5 @@
-import { User } from 'src/core/entities/user/user';
-import { mockUser } from './__mocks__/auth-adapter';
+import { mockUser } from '../../entities/user/mock';
+import { User } from '../../entities/user/user';
 
 export class AuthAdapter {
   constructor() {}

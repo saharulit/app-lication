@@ -1,25 +1,18 @@
-// import { mockUser } from 'src/core/adapters/auth/__mocks__/auth-adapter';
-// import { authService } from '..';
+import { authService } from '..';
+import {
+  mockLogin,
+  mockLogout,
+} from '../../adapters/auth/__mocks__/auth-adapter';
 
-// const mockLogin = vi.fn().mockImplementation(async () => {
-//   return { success: true, user: mockUser };
-// });
-// export const mockLogout = vi.fn().mockImplementation(async () => {
-//   return { success: true };
-// });
+vi.mock('../../adapters/auth/auth-adapter.ts');
 
-// export const AuthAdapter = vi.fn().mockImplementation(() => ({
-//   login: mockLogin,
-//   logout: mockLogout,
-// }));
-
-// describe('AuthService', () => {
-//   it('should call to login', async () => {
-//     await authService.login('1', '1');
-//     expect(mockLogin).toHaveBeenCalledWith('1', '1');
-//   });
-//   it('should call to logout', async () => {
-//     await authService.logout();
-//     expect(mockLogout).toHaveBeenCalled();
-//   });
-// });
+describe('AuthService', () => {
+  it('should call to login', async () => {
+    await authService.login('1', '1');
+    expect(mockLogin).toHaveBeenCalledWith('1', '1');
+  });
+  it('should call to logout', async () => {
+    await authService.logout();
+    expect(mockLogout).toHaveBeenCalled();
+  });
+});
