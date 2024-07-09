@@ -5,7 +5,6 @@ import { useAuth } from '../../core/contexts/authContext';
 interface PrivateRouteProps {
   component: React.ComponentType;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-
   props?: Record<string, any>;
 }
 
