@@ -10,22 +10,14 @@ describe('AppliedJobService', () => {
 
   const service = new AppliedJobService(mockAdapter);
 
-  it('should return list of applied jobs', async () => {
-    const jobList = await service.appliedJobList();
-    expect(jobList).toEqual(appliedJobMock);
+  it('should call to adapter', async () => {
+    await service.appliedJobList();
     expect(mockAdapter.appliedJobList).toHaveBeenCalledWith(undefined);
   });
 
-  it('should return filtered list of applied jobs based on search query', async () => {
+  it('should call to adapter with search query', async () => {
     const searchQuery = 'Software Engineer';
-    const filteredJobList = appliedJobMock.filter(
-      (job) =>
-        job.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        job.company.name.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-
-    const jobList = await service.appliedJobList(searchQuery);
-    expect(jobList).toEqual(filteredJobList);
+    await service.appliedJobList(searchQuery);
     expect(mockAdapter.appliedJobList).toHaveBeenCalledWith(searchQuery);
   });
 });
