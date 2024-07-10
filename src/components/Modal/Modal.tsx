@@ -20,10 +20,26 @@ const Modal: React.FC<ModalProps> = ({
     <MuiModal open={open} onClose={onClose}>
       <Box className={'app-bg-white mx-28 my-10 p-4'}>
         {header && (
-          <Box className={'p-4 border-b app-border-gray'}>{header}</Box>
+          <Box
+            data-testid="modal-header"
+            className={'p-4 border-b app-border-gray'}
+          >
+            {header}
+          </Box>
         )}
-        {body && <Box className={'p-4 border-b app-border-gray'}>{body}</Box>}
-        {footer && <Box className={'p-4'}>{footer}</Box>}
+        {body && (
+          <Box
+            data-testid="modal-body"
+            className={'p-4 border-b app-border-gray'}
+          >
+            {body}
+          </Box>
+        )}
+        {footer && (
+          <Box data-testid="modal-footer" className={'p-4'}>
+            {footer}
+          </Box>
+        )}
       </Box>
     </MuiModal>
   );
