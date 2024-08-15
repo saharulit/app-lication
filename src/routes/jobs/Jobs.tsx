@@ -11,7 +11,7 @@ interface JobsProps {
 }
 
 const Jobs: React.FC<JobsProps> = ({ openEditModal }) => {
-  const [search, setSearch] = useState('');
+  const [, setSearch] = useState('');
   const navigate = useNavigate();
 
   const { data: appliedJobs = [], error, isLoading } = useGetAppliedJobsQuery();
