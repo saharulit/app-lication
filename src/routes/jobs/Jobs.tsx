@@ -1,33 +1,25 @@
-import { SetStateAction, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { AppliedJob } from '../../core/entities/appliedJob';
-import { jobService } from '../../core/services';
 import Card from '../../components/Card/Card';
 import ToolBar from './ToolBar';
 import EditJobModal from './EditJobModal';
+import { useGetAppliedJobsQuery } from '../../core/api/appliedJobsApi';
 
 interface JobsProps {
   openEditModal?: boolean;
 }
 
-const Jobs: React.FC<JobsProps> = ({ openEditModal: openEditModal }) => {
-  const [jobs, setJobs] = useState([] as AppliedJob[]);
+const Jobs: React.FC<JobsProps> = ({ openEditModal }) => {
   const [search, setSearch] = useState('');
   const navigate = useNavigate();
 
-  const onSearchChange = (e: { target: { value: SetStateAction<string> } }) => {
-    setSearch(e.target.value);
-    //TODO: Implement search using url query params
-  };
+  const { data: appliedJobs = [], error, isLoading } = useGetAppliedJobsQuery();
 
-  useEffect(() => {
-    async function fetchData() {
-      const fetchedJobs = await jobService.appliedJobList(search);
-      setJobs(fetchedJobs);
-    }
-    fetchData();
-  }, [search]);
+  const onSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearch(e.target.value);
+    // TODO: Implement search using URL query params
+  };
 
   return (
     <div className="flex flex-col gap-4">
@@ -37,9 +29,13 @@ const Jobs: React.FC<JobsProps> = ({ openEditModal: openEditModal }) => {
           onSearchChange={onSearchChange}
           onAddButton={() => navigate('new')}
         />
-        {jobs.length > 0 ? (
+        {isLoading ? (
+          <p className="text-lg">Loading jobs...</p>
+        ) : error ? (
+          <p className="text-lg text-red-500">Error loading jobs.</p>
+        ) : appliedJobs.length > 0 ? (
           <div className="flex flex-wrap gap-4">
-            {jobs.map((job, index) => (
+            {appliedJobs.map((job, index) => (
               <Card key={`card-${index + 1}`} {...job} />
             ))}
           </div>
