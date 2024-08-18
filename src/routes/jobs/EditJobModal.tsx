@@ -3,22 +3,27 @@ import Modal from '../../components/Modal/Modal';
 import JobForm from './JobForm';
 import Button from '../../components/Button/Button';
 import { AppliedJob } from '../../core/entities/appliedJob';
-import { jobService } from '../../core/services';
+import { useAddAppliedJobMutation } from '../../core/api/appliedJobsApi';
 
 interface EditJobModalProps {
   open: boolean;
   onClose: () => void;
+  onSave: (appliedJob: AppliedJob) => void;
   jobId?: string | null;
 }
 
 const EditJobModal: React.FC<EditJobModalProps> = ({
   open,
   onClose,
+  onSave,
   jobId,
 }) => {
+  const [addAppliedJob] = useAddAppliedJobMutation();
+
   const onSubmit = async (values: AppliedJob) => {
     console.log(values);
-    await jobService.addApplication(values);
+    const result = await addAppliedJob(values).unwrap();
+    onSave(result);
     onClose();
   };
 
@@ -31,6 +36,7 @@ const EditJobModal: React.FC<EditJobModalProps> = ({
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const formikRef = React.useRef<any>(null);
+
   return (
     <Modal
       open={open}

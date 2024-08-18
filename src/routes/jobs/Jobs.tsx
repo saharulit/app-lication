@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Card from '../../components/Card/Card';
 import ToolBar from './ToolBar';
 import EditJobModal from './EditJobModal';
 import { useGetAppliedJobsQuery } from '../../core/api/appliedJobsApi';
+import { AppliedJob } from 'src/core/entities/appliedJob';
 
 interface JobsProps {
   openEditModal?: boolean;
@@ -13,12 +14,36 @@ interface JobsProps {
 const Jobs: React.FC<JobsProps> = ({ openEditModal }) => {
   const [, setSearch] = useState('');
   const navigate = useNavigate();
+  const [appliedJobs, setAppliedJobs] = useState<AppliedJob[]>([]);
 
-  const { data: appliedJobs = [], error, isLoading } = useGetAppliedJobsQuery();
+  const { data, error, isLoading } = useGetAppliedJobsQuery();
+
+  // Update the state when the data changes
+  useEffect(() => {
+    if (data) {
+      setAppliedJobs(data);
+    }
+  }, [data]);
 
   const onSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
     // TODO: Implement search using URL query params
+  };
+  const addOrUpdateJobInList = (updatedJob: AppliedJob) => {
+    const prevJob = appliedJobs.find((item) => item._id === updatedJob._id);
+    let newJobList: AppliedJob[] = [];
+
+    if (prevJob) {
+      // Update the job in the list
+      newJobList = appliedJobs.map((item) =>
+        item._id === updatedJob._id ? updatedJob : item
+      );
+    } else {
+      // Add the new job to the list
+      newJobList = [...appliedJobs, updatedJob];
+    }
+
+    setAppliedJobs(newJobList);
   };
 
   return (
@@ -46,6 +71,7 @@ const Jobs: React.FC<JobsProps> = ({ openEditModal }) => {
       <EditJobModal
         open={openEditModal || false}
         onClose={() => navigate('/jobs')}
+        onSave={addOrUpdateJobInList}
       />
     </div>
   );
