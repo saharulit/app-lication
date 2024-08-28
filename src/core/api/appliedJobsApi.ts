@@ -5,6 +5,7 @@ export const appliedJobsApi = createApi({
   reducerPath: 'appliedJobsApi',
   baseQuery: fetchBaseQuery({
     baseUrl: 'https://app-lication-server.vercel.app/api/',
+    credentials: 'include', // Ensures cookies are sent with requests
   }),
   endpoints: (builder) => ({
     getAppliedJobs: builder.query<AppliedJob[], void>({
@@ -20,7 +21,10 @@ export const appliedJobsApi = createApi({
         body: job,
       }),
     }),
-    updateAppliedJob: builder.mutation<AppliedJob,{ id: string; job: Partial<AppliedJob> }>({
+    updateAppliedJob: builder.mutation<
+      AppliedJob,
+      { id: string; job: Partial<AppliedJob> }
+    >({
       query: ({ id, job }) => ({
         url: `applied-jobs/${id}`,
         method: 'PUT',

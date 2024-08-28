@@ -6,12 +6,18 @@ import React, {
   useEffect,
 } from 'react';
 import { User } from 'src/core/entities/user/user';
-import { authService } from '../services';
+import { useLoginUserMutation, useRegisterUserMutation } from '../api/authApi';
 
 interface AuthContextType {
   user: User | null;
   login: (email: string, password: string) => Promise<void>;
-  logout: () => Promise<void>;
+  register: (
+    firstName: string,
+    lastName: string,
+    email: string,
+    password: string
+  ) => Promise<void>;
+  logout: () => void;
 }
 
 const SESSION_STORAGE_KEY = 'user';
@@ -26,6 +32,9 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
     return storedUser ? JSON.parse(storedUser) : null;
   });
 
+  const [loginUser] = useLoginUserMutation();
+  const [registerUser] = useRegisterUserMutation();
+
   useEffect(() => {
     if (user) {
       sessionStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(user));
@@ -35,21 +44,42 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
   }, [user]);
 
   const login = async (email: string, password: string) => {
-    const response = await authService.login(email, password);
-    if (response.success) {
-      setUser(response.user);
-    } else {
+    try {
+      const response = await loginUser({ email, password }).unwrap();
+      setUser(response);
+    } catch (error) {
+      console.error('Login failed:', error);
       setUser(null);
     }
   };
 
-  const logout = async () => {
-    await authService.logout();
+  const register = async (
+    firstName: string,
+    lastName: string,
+    email: string,
+    password: string
+  ) => {
+    try {
+      const response = await registerUser({
+        firstName,
+        lastName,
+        email,
+        password,
+      }).unwrap();
+      setUser(response);
+    } catch (error) {
+      console.error('Registration failed:', error);
+      setUser(null);
+    }
+  };
+
+  const logout = () => {
+    // You can clear cookies or handle other cleanup tasks here
     setUser(null);
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, login, register, logout }}>
       {children}
     </AuthContext.Provider>
   );

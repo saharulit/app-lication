@@ -1,14 +1,18 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { appliedJobsApi } from '../api/appliedJobsApi';
+import { authApi } from '../api/authApi';
+import authReducer from '../redux/authSlice';
 
 export const store = configureStore({
   reducer: {
-    // Add the API reducer to the store
     [appliedJobsApi.reducerPath]: appliedJobsApi.reducer,
+    auth: authReducer,
   },
-  // Adding the api middleware enables caching, invalidation, polling, and other features of RTK Query
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(appliedJobsApi.middleware),
+    getDefaultMiddleware().concat(
+      appliedJobsApi.middleware,
+      authApi.middleware
+    ),
 });
 
 export type RootState = ReturnType<typeof store.getState>;
