@@ -1,21 +1,20 @@
 import React, {
   createContext,
-  useState,
   useContext,
   ReactNode,
+  useState,
   useEffect,
 } from 'react';
-import { User } from 'src/core/entities/user/user';
-import { authService } from '../services';
+import { useLoginMutation } from '../api/authApi'; // Use the authApi mutation
+import { User } from '../entities/user/user';
 
 interface AuthContextType {
   user: User | null;
   login: (email: string, password: string) => Promise<void>;
-  logout: () => Promise<void>;
+  logout: () => void;
 }
 
 const SESSION_STORAGE_KEY = 'user';
-
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({
@@ -25,6 +24,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
     const storedUser = sessionStorage.getItem(SESSION_STORAGE_KEY);
     return storedUser ? JSON.parse(storedUser) : null;
   });
+  const [loginMutation] = useLoginMutation(); // Login mutation hook from authApi
 
   useEffect(() => {
     if (user) {
@@ -35,17 +35,20 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
   }, [user]);
 
   const login = async (email: string, password: string) => {
-    const response = await authService.login(email, password);
-    if (response.success) {
-      setUser(response.user);
-    } else {
+    try {
+      const response = await loginMutation({ email, password }).unwrap();
+      setUser(response);
+      console.log(`log in response: ${response}`);
+    } catch (error) {
+      console.error('Login failed', error);
       setUser(null);
     }
   };
 
-  const logout = async () => {
-    await authService.logout();
+  const logout = () => {
+    sessionStorage.removeItem(SESSION_STORAGE_KEY);
     setUser(null);
+    // Optionally, call the logout API if needed
   };
 
   return (
