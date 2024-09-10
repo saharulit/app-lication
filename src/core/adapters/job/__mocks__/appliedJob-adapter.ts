@@ -2,11 +2,11 @@ import { AppliedJob, JobStatus } from '../../../entities/appliedJob';
 
 export const appliedJobMock: AppliedJob[] = [
   {
-    id: '1',
+    _id: '1',
     title: 'Software Engineer',
     description: 'Develop software solutions',
     company: {
-      id: '1',
+      _id: '1',
       userId: '1',
       name: 'Google',
       description: 'Search engine',
@@ -17,11 +17,11 @@ export const appliedJobMock: AppliedJob[] = [
     status: JobStatus.REJECTED,
   },
   {
-    id: '2',
+    _id: '2',
     title: 'Frontend Developer 12 3 media hi ff f f f ffff 2 3 4 5 6 1 2 3 4',
     description: 'Develop frontend solutions',
     company: {
-      id: '2',
+      _id: '2',
       userId: '1',
       name: 'NetApp',
       description:
@@ -33,11 +33,11 @@ export const appliedJobMock: AppliedJob[] = [
     status: JobStatus.HIRED,
   },
   {
-    id: '2',
+    _id: '2',
     title: 'Frontend Developer 12 3 media hi ff f f f ffff 2 3 4 5 6 1 2 3 4',
     description: 'Develop frontend solutions',
     company: {
-      id: '2',
+      _id: '2',
       userId: '1',
       name: 'CHEQ',
       description:
@@ -49,11 +49,11 @@ export const appliedJobMock: AppliedJob[] = [
     status: JobStatus.APPLIED,
   },
   {
-    id: '2',
+    _id: '2',
     title: 'Frontend Developer 12 3 media hi ff f f f ffff 2 3 4 5 6 1 2 3 4',
     description: 'Develop frontend solutions',
     company: {
-      id: '2',
+      _id: '2',
       userId: '1',
       name: 'Facebook',
       description:
