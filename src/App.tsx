@@ -6,11 +6,11 @@ import Root from './routes/root/Root';
 
 function App() {
   return (
-    <AuthProvider>
-      <Provider store={store}>
+    <Provider store={store}>
+      <AuthProvider>
         <Root />
-      </Provider>
-    </AuthProvider>
+      </AuthProvider>
+    </Provider>
   );
 }
 

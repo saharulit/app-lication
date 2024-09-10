@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { useAuth } from '../../core/contexts/authContext';
 import { useNavigate } from 'react-router-dom';
 
-const Login: React.FC = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+const LoginForm = () => {
+  const [email, setEmail] = useState('saharulit2@gmail.com');
+  const [password, setPassword] = useState('1');
   const { login } = useAuth();
   const navigate = useNavigate();
 
@@ -16,29 +16,21 @@ const Login: React.FC = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div>
-        <label>
-          email:
-          <input
-            type="text"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </label>
-      </div>
-      <div>
-        <label>
-          Password:
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </label>
-      </div>
+      <input
+        type="email"
+        placeholder="Email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+      />
+      <input
+        type="password"
+        placeholder="Password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+      />
       <button type="submit">Login</button>
     </form>
   );
 };
 
-export default Login;
+export default LoginForm;
