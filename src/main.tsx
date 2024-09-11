@@ -7,6 +7,7 @@ import { config } from './config/index.ts';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
+    <div>TEST Sahar</div>
     <BrowserRouter basename={config.BASENAME}>
       <App />
     </BrowserRouter>
