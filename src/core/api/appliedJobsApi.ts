@@ -10,7 +10,11 @@ export const appliedJobsApi = createApi({
   }),
   endpoints: (builder) => ({
     getAppliedJobs: builder.query<AppliedJob[], void>({
-      query: () => 'applied-jobs',
+      query: () => ({
+        url: 'applied-jobs',
+        method: 'GET',
+        credentials: 'include', // Ensures cookies are sent with requests
+      }),
     }),
     getAppliedJobById: builder.query<AppliedJob, string>({
       query: (id) => `applied-jobs/${id}`,
