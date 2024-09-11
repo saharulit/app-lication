@@ -19,10 +19,15 @@ const Jobs: React.FC<JobsProps> = ({ openEditModal }) => {
   const { data, error, isLoading } = useGetAppliedJobsQuery();
 
   useEffect(() => {
-    fetch('https://app-lication-server.vercel.app/api/applied-jobs')
+    fetch('https://app-lication-server.vercel.app/api/applied-jobs', {
+      method: 'GET',
+      credentials: 'include', // Include cookies in the request
+    })
       .then((response) => response.json())
-      .then((data) => console.log(data.message));
+      .then((data) => console.log(data.message))
+      .catch((error) => console.error('Error:', error));
   }, []);
+
   // Update the state when the data changes
   useEffect(() => {
     if (data) {
