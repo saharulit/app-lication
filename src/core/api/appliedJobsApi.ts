@@ -7,6 +7,7 @@ const getTokenFromCookie = () => {
     .split('; ')
     .find((row) => row.startsWith('token='))
     ?.split('=')[1];
+  console.log(`Token: ${token}`);
   return token;
 };
 
@@ -20,6 +21,8 @@ export const appliedJobsApi = createApi({
       if (token) {
         headers.set('Authorization', `Bearer ${token}`);
       }
+      console.log('Authorization', `Bearer ${token}`);
+
       return headers;
     },
   }),
