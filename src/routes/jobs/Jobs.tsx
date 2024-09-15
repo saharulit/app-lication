@@ -6,7 +6,6 @@ import ToolBar from './ToolBar';
 import EditJobModal from './EditJobModal';
 import { useGetAppliedJobsQuery } from '../../core/api/appliedJobsApi';
 import { AppliedJob } from 'src/core/entities/appliedJob';
-import { config } from '../../config';
 
 interface JobsProps {
   openEditModal?: boolean;
