@@ -35,15 +35,34 @@ const Jobs: React.FC<JobsProps> = ({ openEditModal }) => {
     }
   }, [data]);
 
+  // Helper function to get token from cookie
+  const getTokenFromCookie = () => {
+    const token = document.cookie
+      .split('; ')
+      .find((row) => row.startsWith('token='))
+      ?.split('=')[1];
+    console.log(`Token: ${token}`);
+    return token;
+  };
+
   const test = async () => {
+    // Get the token from the cookie
+    const token = getTokenFromCookie();
+
+    // Make the fetch request and add the token to the Authorization header
     fetch('https://app-lication-server.vercel.app/api/applied-jobs', {
       method: 'GET',
       credentials: 'include', // Include cookies in the request
+      headers: {
+        Authorization: `Bearer ${token}`, // Attach the token manually
+        'Content-Type': 'application/json', // Optional: Include if you're sending JSON
+      },
     })
       .then((response) => response.json())
       .then((data) => console.log(data.message))
       .catch((error) => console.error('Error:', error));
   };
+
   const onSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
     // TODO: Implement search using URL query params
