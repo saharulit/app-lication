@@ -37,6 +37,7 @@ const Jobs: React.FC<JobsProps> = ({ openEditModal }) => {
 
   // Helper function to get token from cookie
   const getTokenFromCookie = () => {
+    console.log(`getTokenFromCookie`);
     const token = document.cookie
       .split('; ')
       .find((row) => row.startsWith('token='))
