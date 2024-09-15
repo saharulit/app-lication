@@ -2,11 +2,25 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { User } from '../entities/user/user';
 import { config } from '../../config';
 
-export const authApi = createApi({
-  reducerPath: 'auth',
+const getTokenFromCookie = () => {
+  const token = document.cookie
+    .split('; ')
+    .find((row) => row.startsWith('token='))
+    ?.split('=')[1];
+  return token;
+};
+
+export const jobApi = createApi({
+  reducerPath: 'jobApi',
   baseQuery: fetchBaseQuery({
     baseUrl: config.SERVER_BASE_URL,
-    credentials: 'include',
+    prepareHeaders: (headers) => {
+      const token = getTokenFromCookie();
+      if (token) {
+        headers.set('Authorization', `Bearer ${token}`);
+      }
+      return headers;
+    },
   }),
   endpoints: (builder) => ({
     register: builder.mutation<
