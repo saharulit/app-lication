@@ -6,6 +6,7 @@ import ToolBar from './ToolBar';
 import EditJobModal from './EditJobModal';
 import { useGetAppliedJobsQuery } from '../../core/api/appliedJobsApi';
 import { AppliedJob } from 'src/core/entities/appliedJob';
+import { config } from '../../config';
 
 interface JobsProps {
   openEditModal?: boolean;
@@ -35,27 +36,12 @@ const Jobs: React.FC<JobsProps> = ({ openEditModal }) => {
     }
   }, [data]);
 
-  // Helper function to get token from cookie
-  const getTokenFromCookie = () => {
-    console.log(`getTokenFromCookie`);
-    const token = document.cookie
-      .split('; ')
-      .find((row) => row.startsWith('token='))
-      ?.split('=')[1];
-    console.log(`Token: ${token}`);
-    return token;
-  };
-
   const test = async () => {
-    // Get the token from the cookie
-    const token = getTokenFromCookie();
-
     // Make the fetch request and add the token to the Authorization header
-    fetch('https://app-lication-server.vercel.app/api/applied-jobs', {
+    fetch(`${config.SERVER_BASE_URL}applied-jobs`, {
       method: 'GET',
       credentials: 'include', // Include cookies in the request
       headers: {
-        Authorization: `Bearer ${token}`, // Attach the token manually
         'Content-Type': 'application/json', // Optional: Include if you're sending JSON
       },
     })
