@@ -36,20 +36,6 @@ const Jobs: React.FC<JobsProps> = ({ openEditModal }) => {
     }
   }, [data]);
 
-  const test = async () => {
-    // Make the fetch request and add the token to the Authorization header
-    fetch(`${config.SERVER_BASE_URL}applied-jobs`, {
-      method: 'GET',
-      credentials: 'include', // Include cookies in the request
-      headers: {
-        'Content-Type': 'application/json', // Optional: Include if you're sending JSON
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => console.log(data.message))
-      .catch((error) => console.error('Error:', error));
-  };
-
   const onSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
     // TODO: Implement search using URL query params
@@ -74,7 +60,6 @@ const Jobs: React.FC<JobsProps> = ({ openEditModal }) => {
   return (
     <div className="flex flex-col gap-4">
       <h1 className="text-3xl font-bold">My applications</h1>
-      <button onClick={test}>GET DATA</button>
       <div className="flex flex-col gap-4">
         <ToolBar
           onSearchChange={onSearchChange}
