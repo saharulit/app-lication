@@ -5,13 +5,23 @@ import React, {
   useState,
   useEffect,
 } from 'react';
-import { useLoginMutation } from '../api/authApi'; // Use the authApi mutation
+import {
+  useLoginMutation,
+  useLogoutMutation,
+  useRegisterMutation,
+} from '../api/authApi';
 import { User } from '../entities/user/user';
 
 interface AuthContextType {
   user: User | null;
   login: (email: string, password: string) => Promise<void>;
   logout: () => void;
+  register: (
+    firstName: string,
+    lastName: string,
+    email: string,
+    password: string
+  ) => Promise<void>;
 }
 
 const SESSION_STORAGE_KEY = 'user';
@@ -24,7 +34,9 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
     const storedUser = sessionStorage.getItem(SESSION_STORAGE_KEY);
     return storedUser ? JSON.parse(storedUser) : null;
   });
-  const [loginMutation] = useLoginMutation(); // Login mutation hook from authApi
+  const [loginMutation] = useLoginMutation();
+  const [logoutMutation] = useLogoutMutation();
+  const [registerMutation] = useRegisterMutation();
 
   useEffect(() => {
     if (user) {
@@ -38,9 +50,26 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
     try {
       const response = await loginMutation({ email, password }).unwrap();
       setUser(response);
-      console.log(`log in response: ${response}`);
     } catch (error) {
-      console.error('Login failed', error);
+      setUser(null);
+    }
+  };
+
+  const register = async (
+    firstName: string,
+    lastName: string,
+    email: string,
+    password: string
+  ) => {
+    try {
+      const response = await registerMutation({
+        firstName,
+        lastName,
+        email,
+        password,
+      }).unwrap();
+      setUser(response);
+    } catch (error) {
       setUser(null);
     }
   };
@@ -48,11 +77,11 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
   const logout = () => {
     sessionStorage.removeItem(SESSION_STORAGE_KEY);
     setUser(null);
-    // Optionally, call the logout API if needed
+    logoutMutation({});
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, login, logout, register }}>
       {children}
     </AuthContext.Provider>
   );
