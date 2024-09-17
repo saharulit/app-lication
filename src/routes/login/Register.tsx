@@ -32,7 +32,7 @@ import { User } from 'src/core/entities/user/user';
       } as unknown as LogInUser
     }
     validate={validateFunction}
-    onSubmit={async (values) => {
+    onSubmit={async () => {
     // onSubmit(values);
     }}
   >

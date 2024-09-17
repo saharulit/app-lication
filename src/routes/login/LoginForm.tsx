@@ -33,7 +33,7 @@ const LoginForm: React.FC = () => {
             } as unknown as LogInUser
           }
           validate={validateFunction}
-          onSubmit={async (values) => {
+          onSubmit={async () => {
             // onSubmit(values);
           }}
         >
