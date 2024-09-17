@@ -1,5 +1,4 @@
 import LoginForm from "./LoginForm";
-import Logo from "./Logo";
 import BigLogo from "../../assets/logo-full-white.svg";
 const LoginPage = () => {
   return (

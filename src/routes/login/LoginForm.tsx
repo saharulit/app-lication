@@ -1,6 +1,3 @@
-import React, { useState } from "react";
-import { useAuth } from "../../core/contexts/authContext";
-import { useNavigate } from "react-router-dom";
 import Input from "../../components/Input/Input";
 import { Formik, Form } from "formik";
 import { User } from "src/core/entities/user/user";
