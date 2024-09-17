@@ -1,10 +1,11 @@
-import React from 'react';
-import MainLayout from '../+layout/MainLayout';
-import { Routes, Route, Navigate } from 'react-router-dom';
-import Jobs from '../jobs/Jobs';
-import LoginPage from '../login/LoginPage';
-import { useAuth } from '../../core/contexts/authContext';
-import PrivateRoute from './PrivateRoute';
+import React from "react";
+import MainLayout from "../+layout/MainLayout";
+import { Routes, Route, Navigate } from "react-router-dom";
+import Jobs from "../jobs/Jobs";
+import LoginPage from "../login/LoginPage";
+import { useAuth } from "../../core/contexts/authContext";
+import PrivateRoute from "./PrivateRoute";
+import Register from "../login/Register";
 
 const Root: React.FC = () => {
   const { user } = useAuth();
@@ -14,7 +15,7 @@ const Root: React.FC = () => {
       <Routes>
         <Route
           path="/"
-          element={<Navigate to={user ? '/jobs' : '/login'} replace />}
+          element={<Navigate to={user ? "/jobs" : "/login"} replace />}
         />
         <Route
           path="/jobs/new"
@@ -26,6 +27,11 @@ const Root: React.FC = () => {
 
         <Route
           path="/login"
+          element={user ? <Navigate to="/jobs" /> : <LoginPage />}
+        />
+
+        <Route
+          path="/register"
           element={user ? <Navigate to="/jobs" /> : <LoginPage />}
         />
       </Routes>

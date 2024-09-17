@@ -1,6 +1,12 @@
 import LoginForm from "./LoginForm";
 import BigLogo from "../../assets/logo-full-white.svg";
+import Register from "./Register";
+import { useLocation } from 'react-router-dom';
+
 const LoginPage = () => {
+  const location = useLocation();
+  const isRegister = location.pathname === '/register';
+
   return (
     <div className="flex flex-col h-screen">
       <div className="flex md:flex-row flex-col flex-1 overflow-hidden">
@@ -21,8 +27,7 @@ const LoginPage = () => {
         <div className="px-4 md:basis-1/2 flex overflow-auto align-middle flex-auto">
           <div className="w-96 m-auto h-[620px] ">
             {/* Right side content goes here */}
-            <div className=" "></div>
-            <LoginForm />
+            {isRegister ? <Register /> : <LoginForm />}
           </div>
         </div>
       </div>

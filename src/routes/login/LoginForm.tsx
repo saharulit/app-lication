@@ -2,6 +2,7 @@ import Input from "../../components/Input/Input";
 import { Formik, Form } from "formik";
 import { User } from "src/core/entities/user/user";
 import Button from "../../components/Button/Button";
+import { Link } from "react-router-dom";
 
 const validateFunction = (values: LogInUser) => {
   const errors: Partial<LogInUser> = {};
@@ -67,9 +68,15 @@ const LoginForm: React.FC = () => {
                   Forgot Password
                 </a>
                 <div className="pt-5">
-                  <Button type="submit" className="w-full">
+                  <Button type="submit" className="w-full pt-5">
                     Login
                   </Button>
+                </div>
+                <div className="flex pt-5">
+                  <div className="pr-2"> Don't have an account? </div>
+                  <Link to="/register" className="text-blue hover:underline">
+                    Register
+                  </Link>
                 </div>
               </div>
             </Form>
