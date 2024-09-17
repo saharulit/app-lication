@@ -6,7 +6,7 @@ export const authApi = createApi({
   reducerPath: 'auth',
   baseQuery: fetchBaseQuery({
     baseUrl: config.SERVER_BASE_URL,
-    credentials: 'include',
+    credentials: 'include', // Ensures cookies are sent with requests
   }),
   endpoints: (builder) => ({
     register: builder.mutation<
@@ -27,7 +27,15 @@ export const authApi = createApi({
         body: credentials,
       }),
     }),
+
+    logout: builder.mutation({
+      query: () => ({
+        url: 'auth/logout',
+        method: 'POST',
+      }),
+    }),
   }),
 });
 
-export const { useRegisterMutation, useLoginMutation } = authApi;
+export const { useRegisterMutation, useLoginMutation, useLogoutMutation } =
+  authApi;
