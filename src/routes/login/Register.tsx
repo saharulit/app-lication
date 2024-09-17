@@ -3,6 +3,8 @@ import { Formik, Form } from "formik";
 import { User } from "src/core/entities/user/user";
 import Button from "../../components/Button/Button";
 import { Link } from "react-router-dom";
+import { useAuth } from '../../core/contexts/authContext';
+import { useNavigate } from 'react-router-dom';
 
 const validateFunction = (values: LogInUser) => {
   const errors: Partial<LogInUser> = {};
@@ -22,6 +24,9 @@ export interface LogInUser extends User {
 }
 
 const Register: React.FC = () => {
+  const { register } = useAuth();
+  const navigate = useNavigate();
+
   return (
     <>
       <div id="login-form" className="">
@@ -31,10 +36,13 @@ const Register: React.FC = () => {
               firstName: "",
               lastName: "",
               email: "",
+              password: "",
             } as unknown as LogInUser
           }
           validate={validateFunction}
-          onSubmit={async () => {
+          onSubmit={async (values) => {
+            await register(values.firstName, values.lastName, values.email, values.password);
+            navigate('/jobs');
             // onSubmit(values);
           }}
         >

@@ -3,6 +3,9 @@ import { Formik, Form } from "formik";
 import { User } from "src/core/entities/user/user";
 import Button from "../../components/Button/Button";
 import { Link } from "react-router-dom";
+import React from 'react';
+import { useAuth } from '../../core/contexts/authContext';
+import { useNavigate } from 'react-router-dom';
 
 const validateFunction = (values: LogInUser) => {
   const errors: Partial<LogInUser> = {};
@@ -22,20 +25,24 @@ export interface LogInUser extends User {
 }
 
 const LoginForm: React.FC = () => {
+  const { login } = useAuth();
+  const navigate = useNavigate();
+
   return (
     <>
       <div id="login-form" className="">
         <Formik
           initialValues={
             {
-              firstName: "",
-              lastName: "",
               email: "",
+              password: "",
             } as unknown as LogInUser
           }
           validate={validateFunction}
-          onSubmit={async () => {
-            // onSubmit(values);
+          onSubmit={async (values) => {
+            await login(values.email, values.password);
+            navigate('/jobs');
+           console.log(values);
           }}
         >
           {({ values, errors, touched, handleChange }) => (
