@@ -7,15 +7,19 @@ export interface ButtonFilter {
 }
 
 export interface ButtonsFiltersProps {
+  name: string
   filters: ButtonFilter[];
   selectedValues?: string[];
-  onFilterChange: (value: string) => void;
+  onAddFilter:  (name: string, value: string | string[]) => void;
+  onRemoveFilter:  (name: string, value: string | string[]) => void;
 }
 
 const ButtonsFilters: React.FC<ButtonsFiltersProps> = ({
+  name,
   filters,
   selectedValues,
-  onFilterChange,
+  onAddFilter,
+  onRemoveFilter,
 }) => {
   return (
     <div>
@@ -24,16 +28,11 @@ const ButtonsFilters: React.FC<ButtonsFiltersProps> = ({
           key={filter.value}
           selected={selectedValues?.includes(filter.value)}
           mode="secondary"
-          // style={{
-          //   backgroundColor: filter.value === selectedValue ? 'blue' : 'gray',
-          //   color: 'white',
-          //   margin: '0 5px',
-          //   padding: '10px',
-          //   border: 'none',
-          //   borderRadius: '5px',
-          //   cursor: 'pointer',
-          // }}
-          onClick={() => onFilterChange(filter.value)}
+          onClick={
+            selectedValues?.includes(filter.value)
+              ? () => onRemoveFilter(name, filter.value)
+              : () => onAddFilter(name, filter.value)
+          }
         >
           {filter.title || filter.value}
         </Button>
