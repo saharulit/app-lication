@@ -18,7 +18,7 @@ function MainLayout({ children }: MainLayoutProps): JSX.Element {
   return (
     <>
       {user && <NavigationBar onLogOut={handleLogOut} />}
-      <div className="p-10">{children}</div>
+      <div className={user? "p-10": ""} >{children}</div>
     </>
   );
 }

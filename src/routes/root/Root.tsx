@@ -2,7 +2,7 @@ import React from 'react';
 import MainLayout from '../+layout/MainLayout';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Jobs from '../jobs/Jobs';
-import Login from '../login/Login';
+import LoginPage from '../login/LoginPage';
 import { useAuth } from '../../core/contexts/authContext';
 import PrivateRoute from './PrivateRoute';
 
@@ -26,7 +26,12 @@ const Root: React.FC = () => {
 
         <Route
           path="/login"
-          element={user ? <Navigate to="/jobs" /> : <Login />}
+          element={user ? <Navigate to="/jobs" /> : <LoginPage />}
+        />
+
+        <Route
+          path="/register"
+          element={user ? <Navigate to="/jobs" /> : <LoginPage />}
         />
       </Routes>
     </MainLayout>
