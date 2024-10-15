@@ -15,17 +15,19 @@ const theme = createTheme({
 
 interface ButtonProps extends MuiButtonProps {
   mode?: 'primary' | 'secondary';
+  selected?: boolean;
 }
 
 const Button: React.FC<ButtonProps> = ({
   children,
   mode = 'primary',
+  selected = false,
   ...props
 }) => (
   <ThemeProvider theme={theme}>
     <ButtonMui
       style={{ textTransform: 'none' }} //Material UI button defaults the text within the button to uppercase.
-      variant={mode === 'primary' ? 'contained' : 'outlined'}
+      variant={mode === 'primary' || selected ? 'contained' : 'outlined'}
       color={mode}
       {...props}
     >
