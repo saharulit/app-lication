@@ -139,7 +139,7 @@ const useFilters = ({ config }: UseFiltersProps): UseFiltersResult => {
     });
   };
 
-  const removeFilter = (name: string, value: string | string[]) => {
+  const removeFilter = (name: string, value?: string | string[]) => {
     setFilters((prevFilters) => {
       const currentValue = prevFilters[name];
 
@@ -157,15 +157,13 @@ const useFilters = ({ config }: UseFiltersProps): UseFiltersResult => {
 
         updateUrl(updatedFilters);
         return updatedFilters;
-      } else if (currentValue === value) {
+      } else {
         // Handle removal for single value filters
         const updatedFilters = { ...prevFilters };
         delete updatedFilters[name];
         updateUrl(updatedFilters);
         return updatedFilters;
       }
-
-      return prevFilters; // No change if the value isn't found
     });
   };
 

@@ -30,7 +30,11 @@ const Jobs: React.FC<{ openEditModal?: boolean }> = ({ openEditModal }) => {
 
   const onSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newSearchTerm = e.target.value;
-    addFilter('search', newSearchTerm);
+    if (newSearchTerm) {
+      addFilter('search', newSearchTerm);
+    } else {
+      removeFilter('search', '');
+    }
   };
 
   const addOrUpdateJobInList = (updatedJob: AppliedJob) => {
