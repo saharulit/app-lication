@@ -43,7 +43,6 @@ const Register: React.FC = () => {
           onSubmit={async (values) => {
             await register(values.firstName, values.lastName, values.email, values.password);
             navigate('/jobs');
-            // onSubmit(values);
           }}
         >
           {({ values, errors, touched, handleChange }) => (
