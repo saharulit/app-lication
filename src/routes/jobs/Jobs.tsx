@@ -1,4 +1,3 @@
-// Jobs.jsx
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Card from '../../components/Card/Card';
@@ -8,21 +7,22 @@ import { useGetAppliedJobsQuery } from '../../core/api/appliedJobsApi';
 import { AppliedJob } from 'src/core/entities/appliedJob';
 import { jobFilterConfig, statusFilter } from './FiltersConfig'; // Import your filter configuration
 import useFilters from '../..//core/hooks/useFiltes';
+import { createQueryString } from './utils';
 
 const Jobs: React.FC<{ openEditModal?: boolean }> = ({ openEditModal }) => {
   const navigate = useNavigate();
   const [appliedJobs, setAppliedJobs] = useState<AppliedJob[]>([]);
-
-  const { data, error, isLoading } = useGetAppliedJobsQuery();
   const { activeFilters, addFilter, removeFilter } = useFilters({
     config: jobFilterConfig,
   });
+  const queryString = createQueryString(activeFilters);
+  const { data, error, isLoading } = useGetAppliedJobsQuery(queryString);
 
   useEffect(() => {
     if (data) {
       setAppliedJobs(data);
     }
-  }, [data]);
+  }, [data,activeFilters]);
 
   useEffect(() => {
     console.log(activeFilters);
@@ -89,3 +89,7 @@ const Jobs: React.FC<{ openEditModal?: boolean }> = ({ openEditModal }) => {
 };
 
 export default Jobs;
+function useQuery() {
+  throw new Error('Function not implemented.');
+}
+

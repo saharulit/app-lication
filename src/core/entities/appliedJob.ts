@@ -25,6 +25,6 @@ export enum JobStatus {
 }
 
 export interface Filters {
-  searchTerm?: string;
+  search?: string;
   status?: JobStatus[];
 }
