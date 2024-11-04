@@ -68,23 +68,25 @@ const useFilters = ({ config }: UseFiltersProps): UseFiltersResult => {
             acc[key] = Array.isArray(filterValue)
               ? filterValue
                   .flatMap((val) => val?.split(',')) // Split by comma
+                  .filter(
+                    (val): val is string =>
+                      val !== undefined && val !== null && val.trim() !== ''
+                  ) // Filter out undefined, null, and empty strings
                   .map((val) => validateFilter(key, val.trim())) // Validate each value
-                  .filter((val): val is string => val !== null) // Filter out nulls
-              : [
-                  filterValue
-                    .split(',')
-                    .map((val) => validateFilter(key, val.trim())),
-                ]
-                  .flat()
-                  .filter((val): val is string => val !== null);
+                  .filter((val): val is string => val !== null) // Filter out invalid results
+              : filterValue
+                  .split(',')
+                  .map((val) => validateFilter(key, val.trim()))
+                  .filter((val): val is string => val !== null); // Filter out invalid results
           } else {
             // Single value filter, ensure it's validated
-            acc[key] = validateFilter(
-              key,
-              Array.isArray(filterValue)
-                ? (filterValue[0] as string)
-                : filterValue
-            );
+            acc[key] =
+              validateFilter(
+                key,
+                Array.isArray(filterValue)
+                  ? (filterValue[0] as string)
+                  : filterValue
+              ) || '';
           }
         }
       }
