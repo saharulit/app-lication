@@ -24,12 +24,9 @@ export const statusFilter: ButtonFilter[] = [
 export const jobFilterConfig: FilterConfig = {
   allowedFilters: {
     status: {
-      values: [
-        JobStatus.APPLIED.toLowerCase(),
-        JobStatus.HIRED.toLowerCase(),
-        JobStatus.INTERVIEW.toLowerCase(),
-        JobStatus.REJECTED.toLowerCase(),
-      ],
+      values: statusFilter.map((status) => {
+        return status.value;
+      }),
       validate: true,
     },
     search: {

@@ -20,7 +20,7 @@ interface UseFiltersProps {
 interface UseFiltersResult {
   activeFilters: Record<string, string | string[]>;
   addFilter: (name: string, value: string | string[]) => void;
-  removeFilter: (name: string, value: string | string[]) => void; // Add removeFilter method
+  removeFilter: (name: string, value: string | string[]) => void;
   clearFilters: () => void;
 }
 
@@ -29,12 +29,11 @@ const useFilters = ({ config }: UseFiltersProps): UseFiltersResult => {
   const navigate = useNavigate();
   const [filters, setFilters] = useState<Record<string, string | string[]>>({});
 
-  // Wrap the validateFilter function with useCallback
   const validateFilter = useCallback(
     (key: string, value: string | string[]) => {
       const filterConfig = config.allowedFilters[key];
       if (!filterConfig.validate) {
-        return value; // No validation needed
+        return value;
       }
 
       const allowedValues = filterConfig.values;
@@ -144,21 +143,18 @@ const useFilters = ({ config }: UseFiltersProps): UseFiltersResult => {
       const currentValue = prevFilters[name];
 
       if (Array.isArray(currentValue)) {
-        // Handle removal for array filters
-        const updatedValue = currentValue.filter(
-          (val) => val !== value // Remove the specified value
-        );
+        const updatedValue = currentValue.filter((val) => val !== value);
+        const updatedFilters = { ...prevFilters };
 
-        // If the updated value is empty, delete the key
-        const updatedFilters = {
-          ...prevFilters,
-          [name]: updatedValue.length > 0 ? updatedValue : undefined,
-        };
+        if (updatedValue.length > 0) {
+          updatedFilters[name] = updatedValue;
+        } else {
+          delete updatedFilters[name];
+        }
 
         updateUrl(updatedFilters);
         return updatedFilters;
       } else {
-        // Handle removal for single value filters
         const updatedFilters = { ...prevFilters };
         delete updatedFilters[name];
         updateUrl(updatedFilters);
