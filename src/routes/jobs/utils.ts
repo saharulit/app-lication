@@ -1,4 +1,4 @@
-import { Filters } from 'src/core/entities/appliedJob';
+import { Filters, JobStatus } from '../../core/entities/appliedJob';
 
 export const createQueryString = (filters?: Filters) => {
   if (!filters) return;
@@ -13,4 +13,19 @@ export const createQueryString = (filters?: Filters) => {
   }
 
   return params.toString();
+};
+
+export const StatusToLabel = (status: JobStatus): string => {
+  switch (status) {
+    case JobStatus.APPLIED:
+      return 'Applied';
+    case JobStatus.HIRED:
+      return 'Hired';
+    case JobStatus.INTERVIEW:
+      return 'Interview';
+    case JobStatus.REJECTED:
+      return 'Rejected';
+    default:
+      return '';
+  }
 };

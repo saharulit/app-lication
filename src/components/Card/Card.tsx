@@ -1,17 +1,18 @@
 import { Card as MuiCard, CardContent, Avatar, Chip } from '@mui/material';
-import { AppliedJob } from '../../core/entities/appliedJob';
+import { AppliedJob, JobStatus } from '../../core/entities/appliedJob';
 import Link from '../Link/Link';
+import { StatusToLabel } from '../../routes/jobs/utils';
 
 export default function Card(cardProps: AppliedJob) {
   const getChipColor = (status: string) => {
     switch (status) {
-      case 'Applied':
+      case JobStatus.APPLIED:
         return 'app-bg-gray';
-      case 'Interview':
+      case JobStatus.INTERVIEW:
         return 'app-bg-orange';
-      case 'Rejected':
+      case JobStatus.REJECTED:
         return 'app-bg-red';
-      case 'Hired':
+      case JobStatus.HIRED:
         return 'app-bg-green';
       default:
         return 'app-bg-gray';
@@ -52,7 +53,7 @@ export default function Card(cardProps: AppliedJob) {
             className={`self-end !${getChipColor(
               cardProps.status
             )} !app-color-white`}
-            label={cardProps.status}
+            label={StatusToLabel(cardProps.status)}
           />
         </div>
       </CardContent>
