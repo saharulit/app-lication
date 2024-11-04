@@ -89,7 +89,4 @@ const Jobs: React.FC<{ openEditModal?: boolean }> = ({ openEditModal }) => {
 };
 
 export default Jobs;
-function useQuery() {
-  throw new Error('Function not implemented.');
-}
 
