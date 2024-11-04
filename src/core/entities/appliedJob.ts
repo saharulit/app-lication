@@ -23,3 +23,7 @@ export enum JobStatus {
   REJECTED = 'Rejected',
   HIRED = 'Hired',
 }
+export interface Filters {
+  search?: string;
+  status?: JobStatus[];
+}

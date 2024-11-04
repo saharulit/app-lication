@@ -1,55 +1,51 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
 import Card from '../../components/Card/Card';
 import ToolBar from './ToolBar';
 import EditJobModal from './EditJobModal';
 import { useGetAppliedJobsQuery } from '../../core/api/appliedJobsApi';
 import { AppliedJob } from 'src/core/entities/appliedJob';
+import { jobFilterConfig, statusFilter } from './FiltersConfig'; // Import your filter configuration
+import useFilters from '../..//core/hooks/useFiltes';
+import { createQueryString } from './utils';
 
-interface JobsProps {
-  openEditModal?: boolean;
-}
-
-const Jobs: React.FC<JobsProps> = ({ openEditModal }) => {
-  const [, setSearch] = useState('');
+const Jobs: React.FC<{ openEditModal?: boolean }> = ({ openEditModal }) => {
   const navigate = useNavigate();
   const [appliedJobs, setAppliedJobs] = useState<AppliedJob[]>([]);
+  const { activeFilters, addFilter, removeFilter } = useFilters({
+    config: jobFilterConfig,
+  });
+  const queryString = createQueryString(activeFilters);
+  const { data, error, isLoading } = useGetAppliedJobsQuery(queryString);
 
-  const { data, error, isLoading } = useGetAppliedJobsQuery();
-
-  // useEffect(() => {
-  //   fetch('https://app-lication-server.vercel.app/api/applied-jobs', {
-  //     method: 'GET',
-  //     credentials: 'include', // Include cookies in the request
-  //   })
-  //     .then((response) => response.json())
-  //     .then((data) => console.log(data.message))
-  //     .catch((error) => console.error('Error:', error));
-  // }, []);
-
-  // Update the state when the data changes
   useEffect(() => {
     if (data) {
       setAppliedJobs(data);
     }
-  }, [data]);
+  }, [data,activeFilters]);
+
+  useEffect(() => {
+    console.log(activeFilters);
+  }, [activeFilters]);
 
   const onSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearch(e.target.value);
-    // TODO: Implement search using URL query params
+    const newSearchTerm = e.target.value;
+    if (newSearchTerm) {
+      addFilter('search', newSearchTerm);
+    } else {
+      removeFilter('search', '');
+    }
   };
+
   const addOrUpdateJobInList = (updatedJob: AppliedJob) => {
     const prevJob = appliedJobs.find((item) => item._id === updatedJob._id);
     let newJobList: AppliedJob[] = [];
 
     if (prevJob) {
-      // Update the job in the list
       newJobList = appliedJobs.map((item) =>
         item._id === updatedJob._id ? updatedJob : item
       );
     } else {
-      // Add the new job to the list
       newJobList = [...appliedJobs, updatedJob];
     }
 
@@ -61,8 +57,13 @@ const Jobs: React.FC<JobsProps> = ({ openEditModal }) => {
       <h1 className="text-3xl font-bold">My applications</h1>
       <div className="flex flex-col gap-4">
         <ToolBar
+          searchTerm={activeFilters.search as string}
+          activeFilters={activeFilters}
           onSearchChange={onSearchChange}
+          onAddFilter={addFilter}
+          onRemoveFilter={removeFilter}
           onAddButton={() => navigate('new')}
+          filters={statusFilter}
         />
         {isLoading ? (
           <p className="text-lg">Loading jobs...</p>
@@ -88,3 +89,4 @@ const Jobs: React.FC<JobsProps> = ({ openEditModal }) => {
 };
 
 export default Jobs;
+
