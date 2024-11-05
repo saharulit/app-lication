@@ -1,23 +1,24 @@
 import { FilterConfig } from 'src/core/hooks/useFiltes';
 import { JobStatus } from '../../core/entities/appliedJob';
-import { ButtonFilter } from 'src/components/Filters/ButtonsFilters';
+import { ButtonFilter } from '../../components/Filters/ButtonsFilters';
+import { StatusToLabel } from './utils';
 
 export const statusFilter: ButtonFilter[] = [
   {
-    title: JobStatus.APPLIED,
-    value: JobStatus.APPLIED.toLowerCase(),
+    title: StatusToLabel(JobStatus.APPLIED),
+    value: JobStatus.APPLIED,
   },
   {
-    title: JobStatus.HIRED,
-    value: JobStatus.HIRED.toLowerCase(),
+    title: StatusToLabel(JobStatus.HIRED),
+    value: JobStatus.HIRED,
   },
   {
-    title: JobStatus.INTERVIEW,
-    value: JobStatus.INTERVIEW.toLowerCase(),
+    title: StatusToLabel(JobStatus.INTERVIEW),
+    value: JobStatus.INTERVIEW,
   },
   {
-    title: JobStatus.REJECTED,
-    value: JobStatus.REJECTED.toLowerCase(),
+    title: StatusToLabel(JobStatus.REJECTED),
+    value: JobStatus.REJECTED,
   },
 ];
 
