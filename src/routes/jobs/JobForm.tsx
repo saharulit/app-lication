@@ -37,7 +37,7 @@ const JobForm: React.FC<JobFormProps> = ({ onSubmit, formikRef }) => {
       initialValues={
         {
           title: '',
-          company: { name: '' } as Company,
+          company: { name: '', description: '' } as Company,
           status: JobStatus.APPLIED,
         } as unknown as AppliedJob
       }
@@ -55,6 +55,18 @@ const JobForm: React.FC<JobFormProps> = ({ onSubmit, formikRef }) => {
               onChange={handleChange}
               value={values.company.name}
               label="Company"
+            />
+            {errors.company?.name &&
+              touched.company?.name &&
+              errors.company?.name}
+          </div>
+          <div>
+            <Input
+              type="text"
+              name="company.description"
+              onChange={handleChange}
+              value={values.company.description}
+              label="Company Description"
             />
             {errors.company?.name &&
               touched.company?.name &&
