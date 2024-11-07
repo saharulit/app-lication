@@ -18,8 +18,12 @@ export interface Company {
 }
 
 export enum JobStatus {
-  APPLIED = 'Applied',
-  INTERVIEW = 'Interview',
-  REJECTED = 'Rejected',
-  HIRED = 'Hired',
+  APPLIED = 'applied',
+  INTERVIEW = 'interview',
+  REJECTED = 'rejected',
+  HIRED = 'hired',
+}
+export interface Filters {
+  search?: string;
+  status?: JobStatus[];
 }

@@ -1,8 +1,8 @@
-import Input from "../../components/Input/Input";
-import { Formik, Form } from "formik";
-import { User } from "src/core/entities/user/user";
-import Button from "../../components/Button/Button";
-import { Link } from "react-router-dom";
+import Input from '../../components/Input/Input';
+import { Formik, Form } from 'formik';
+import { User } from 'src/core/entities/user/user';
+import Button from '../../components/Button/Button';
+import { Link } from 'react-router-dom';
 import React from 'react';
 import { useAuth } from '../../core/contexts/authContext';
 import { useNavigate } from 'react-router-dom';
@@ -11,11 +11,11 @@ import { useState } from 'react';
 const validateFunction = (values: LogInUser) => {
   const errors: Partial<LogInUser> = {};
   if (!values.email) {
-    errors.email = "Required";
+    errors.email = 'Required';
   }
 
   if (!values.password) {
-    errors.password = "Required";
+    errors.password = 'Required';
   }
 
   return errors as LogInUser;
@@ -37,12 +37,13 @@ const LoginForm: React.FC = () => {
         <Formik
           initialValues={
             {
-              email: "",
-              password: "",
+              email: 'saharulit2@gmail.com',
+              password: '1',
             } as unknown as LogInUser
           }
           validate={validateFunction}
           onSubmit={async (values) => {
+
             try{
               await login(values.email, values.password);
               navigate('/jobs');
@@ -54,6 +55,10 @@ const LoginForm: React.FC = () => {
                 setLoginError('Error logging in');
               }
             }
+
+            await login(values.email, values.password);
+            navigate('/jobs');
+
           }}
         >
           {({ values, errors, touched, handleChange }) => (
