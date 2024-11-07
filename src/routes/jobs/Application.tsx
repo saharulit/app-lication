@@ -3,7 +3,12 @@ import { useGetAppliedJobByIdQuery } from '../../core/api/appliedJobsApi';
 
 export const Application: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const { data: application, error, isLoading } = useGetAppliedJobByIdQuery(id);
+
+  const {
+    data: application,
+    error,
+    isLoading,
+  } = useGetAppliedJobByIdQuery(id || '');
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -15,6 +20,10 @@ export const Application: React.FC = () => {
 
   if (!application) {
     return <div>No application found.</div>;
+  }
+
+  if (!id) {
+    return <div>Invalid ID</div>;
   }
 
   return (

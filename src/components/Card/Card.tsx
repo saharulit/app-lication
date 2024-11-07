@@ -1,5 +1,5 @@
-import { Card as MuiCard, CardContent, Avatar, Chip } from '@mui/material';
-import { AppliedJob, Company, JobStatus } from '../../core/entities/appliedJob';
+import { Card as MuiCard, CardContent, Chip } from '@mui/material';
+import { AppliedJob, JobStatus } from '../../core/entities/appliedJob';
 import Link from '../Link/Link';
 import { StatusToLabel } from '../../routes/jobs/utils';
 import CompanyLogo from '../CompanyLogo/CompanyLogo';
