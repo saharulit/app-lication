@@ -27,7 +27,7 @@ export default function Card(cardProps: AppliedJob) {
           <Link
             mode="primary"
             size="large"
-            href={`job/${cardProps._id}`}
+            href={`jobs/${cardProps._id}`}
             target="_self"
             className="max-w-60 line-clamp-2 min-h-14"
           >
