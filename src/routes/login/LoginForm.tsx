@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import React from 'react';
 import { useAuth } from '../../core/contexts/authContext';
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 const validateFunction = (values: LogInUser) => {
   const errors: Partial<LogInUser> = {};
@@ -28,6 +29,8 @@ const LoginForm: React.FC = () => {
   const { login } = useAuth();
   const navigate = useNavigate();
 
+  const [loginError, setLoginError] = useState<string | null>(null);
+
   return (
     <>
       <div id="login-form" className="">
@@ -40,8 +43,23 @@ const LoginForm: React.FC = () => {
           }
           validate={validateFunction}
           onSubmit={async (values) => {
+
+            try{
+              await login(values.email, values.password);
+              navigate('/jobs');
+            }
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            catch(error: any){
+              if (error.response && error.response.status === 400) {
+                setLoginError('Invalid credentials');
+              } else {
+                setLoginError('Error logging in');
+              }
+            }
+
             await login(values.email, values.password);
             navigate('/jobs');
+
           }}
         >
           {({ values, errors, touched, handleChange }) => (
@@ -54,7 +72,7 @@ const LoginForm: React.FC = () => {
                   value={values.email}
                   label="Email"
                 />
-                {errors.email && touched.email}
+                {errors.email && touched.email && <div className="text-red text-sm">{errors.email}</div>}
               </div>
               <div>
                 <Input
@@ -64,8 +82,9 @@ const LoginForm: React.FC = () => {
                   value={values.password}
                   label="Password"
                 />
-                {errors.password && touched.password}
+              {errors.password && touched.password && <div className="text-red text-sm">{errors.password}</div>}
               </div>
+              {loginError && <div className="text-red">{loginError}</div>}
               <div className="pt-5">
                 <a
                   href="/forgot-password"
