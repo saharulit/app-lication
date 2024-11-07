@@ -1,7 +1,8 @@
-import { Card as MuiCard, CardContent, Avatar, Chip } from '@mui/material';
+import { Card as MuiCard, CardContent, Chip } from '@mui/material';
 import { AppliedJob, JobStatus } from '../../core/entities/appliedJob';
 import Link from '../Link/Link';
 import { StatusToLabel } from '../../routes/jobs/utils';
+import CompanyLogo from '../CompanyLogo/CompanyLogo';
 
 export default function Card(cardProps: AppliedJob) {
   const getChipColor = (status: string) => {
@@ -26,26 +27,13 @@ export default function Card(cardProps: AppliedJob) {
           <Link
             mode="primary"
             size="large"
-            href="#"
+            href={`jobs/${cardProps._id}`}
             target="_self"
             className="max-w-60 line-clamp-2 min-h-14"
           >
             {cardProps.title}
           </Link>
-          <div className="flex flex-row items-center gap-2">
-            <Avatar
-              alt="company-logo"
-              src={cardProps.company?.logo}
-              sx={{ width: 27, height: 27 }}
-            >
-              <div className="text-xs font-semibold">
-                {cardProps.company?.name?.charAt(0)}
-              </div>
-            </Avatar>
-            <div className="text-xs font-semibold">
-              {cardProps.company?.name}
-            </div>
-          </div>
+          <CompanyLogo company={cardProps.company} />
           <div className="line-clamp-4 max-w-60 min-h-16">
             <p className="text-xs">{cardProps.company?.description}</p>
           </div>

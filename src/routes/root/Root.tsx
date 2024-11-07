@@ -5,6 +5,7 @@ import Jobs from '../jobs/Jobs';
 import LoginPage from '../login/LoginPage';
 import { useAuth } from '../../core/contexts/authContext';
 import PrivateRoute from './PrivateRoute';
+import { Application } from '../jobs/Application';
 
 const Root: React.FC = () => {
   const { user } = useAuth();
@@ -32,6 +33,9 @@ const Root: React.FC = () => {
         <Route
           path="/register"
           element={user ? <Navigate to="/jobs" /> : <LoginPage />}
+        />
+        <Route path='/jobs/:id' 
+          element={<PrivateRoute component={Application} />}
         />
       </Routes>
     </MainLayout>
