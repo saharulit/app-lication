@@ -17,6 +17,9 @@ const Root: React.FC = () => {
           path="/"
           element={<Navigate to={user ? '/jobs' : '/login'} replace />}
         />
+        <Route path='/jobs/:id' 
+          element={<PrivateRoute component={Application} />}
+        />
         <Route
           path="/jobs/new"
           element={
@@ -33,9 +36,6 @@ const Root: React.FC = () => {
         <Route
           path="/register"
           element={user ? <Navigate to="/jobs" /> : <LoginPage />}
-        />
-        <Route path='/jobs/:id' 
-          element={<PrivateRoute component={Application} />}
         />
       </Routes>
     </MainLayout>
