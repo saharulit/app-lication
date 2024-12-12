@@ -31,6 +31,21 @@ const LoginForm: React.FC = () => {
 
   const [loginError, setLoginError] = useState<string | null>(null);
 
+  const signIn = async (values: { email: string; password: string }) => {
+    try {
+      await login(values.email, values.password);
+      navigate('/jobs');
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      console.log(error);
+      if (error.response && error.response.status === 400) {
+        setLoginError('Invalid credentials');
+      } else {
+        setLoginError('Error logging in');
+      }
+    }
+  };
+
   return (
     <>
       <div id="login-form" className="">
@@ -48,22 +63,7 @@ const LoginForm: React.FC = () => {
             } as unknown as LogInUser
           }
           validate={validateFunction}
-          onSubmit={async (values) => {
-            try {
-              await login(values.email, values.password);
-              navigate('/jobs');
-            } catch (error: any) {
-              // eslint-disable-next-line @typescript-eslint/no-explicit-any
-              if (error.response && error.response.status === 400) {
-                setLoginError('Invalid credentials');
-              } else {
-                setLoginError('Error logging in');
-              }
-            }
-
-            await login(values.email, values.password);
-            navigate('/jobs');
-          }}
+          onSubmit={signIn}
         >
           {({ values, errors, touched, handleChange }) => (
             <Form>
