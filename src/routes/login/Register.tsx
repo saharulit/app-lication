@@ -1,19 +1,19 @@
-import Input from "../../components/Input/Input";
-import { Formik, Form } from "formik";
-import { User } from "src/core/entities/user/user";
-import Button from "../../components/Button/Button";
-import { Link } from "react-router-dom";
+import Input from '../../components/Input/Input';
+import { Formik, Form } from 'formik';
+import { User } from 'src/core/entities/user/user';
+import Button from '../../components/Button/Button';
+import { Link } from 'react-router-dom';
 import { useAuth } from '../../core/contexts/authContext';
 import { useNavigate } from 'react-router-dom';
 
 const validateFunction = (values: LogInUser) => {
   const errors: Partial<LogInUser> = {};
   if (!values.email) {
-    errors.email = "Required";
+    errors.email = 'Required';
   }
 
   if (!values.password) {
-    errors.password = "Required";
+    errors.password = 'Required';
   }
 
   return errors as LogInUser;
@@ -29,70 +29,80 @@ const Register: React.FC = () => {
 
   return (
     <>
-      <div id="login-form" className="">
+      <div id="login-form">
+        <div className="pb-10">
+          <h1 className="font-bold text-3xl">Register</h1>
+          <div className="font-semibold text-xl">
+            Join us and take control of your job hunt!
+          </div>
+        </div>
         <Formik
           initialValues={
             {
-              firstName: "",
-              lastName: "",
-              email: "",
-              password: "",
+              firstName: '',
+              lastName: '',
+              email: '',
+              password: '',
             } as unknown as LogInUser
           }
           validate={validateFunction}
           onSubmit={async (values) => {
-            await register(values.firstName, values.lastName, values.email, values.password);
+            await register(
+              values.firstName,
+              values.lastName,
+              values.email,
+              values.password
+            );
             navigate('/jobs');
           }}
         >
           {({ values, errors, touched, handleChange }) => (
             <Form>
-              <div>
-                <Input
-                  type="text"
-                  name="firstName"
-                  onChange={handleChange}
-                  value={values.firstName}
-                  label="First Name"
-                />
-                {errors.firstName && touched.firstName}
-              </div>
-              <div>
-                <Input
-                  type="text"
-                  name="lastName"
-                  onChange={handleChange}
-                  value={values.lastName}
-                  label="Last Name"
-                />
-                {errors.lastName && touched.lastName}
-              </div>
-              <div>
-                <Input
-                  type="text"
-                  name="email"
-                  onChange={handleChange}
-                  value={values.email}
-                  label="Email"
-                />
-                {errors.email && touched.email}
-              </div>
-              <div>
-                <Input
-                  type="password"
-                  name="password"
-                  onChange={handleChange}
-                  value={values.password}
-                  label="Password"
-                />
-                {errors.password && touched.password}
+              <div className="flex flex-col gap-4">
+                <div>
+                  <Input
+                    type="text"
+                    name="firstName"
+                    onChange={handleChange}
+                    value={values.firstName}
+                    label="First Name"
+                  />
+                  {errors.firstName && touched.firstName}
+                </div>
+                <div>
+                  <Input
+                    type="text"
+                    name="lastName"
+                    onChange={handleChange}
+                    value={values.lastName}
+                    label="Last Name"
+                  />
+                  {errors.lastName && touched.lastName}
+                </div>
+                <div>
+                  <Input
+                    type="text"
+                    name="email"
+                    onChange={handleChange}
+                    value={values.email}
+                    label="Email"
+                  />
+                  {errors.email && touched.email}
+                </div>
+                <div>
+                  <Input
+                    type="password"
+                    name="password"
+                    onChange={handleChange}
+                    value={values.password}
+                    label="Password"
+                  />
+                  {errors.password && touched.password}
+                </div>
               </div>
               <div className="flex pt-5">
                 <div className="pr-2">Already have an account? </div>
-                <Link
-                  to="/login"
-                  className="text-blue hover:underline"
-                >
+                <Link to="/login" className="text-blue hover:underline">
                   Login
                 </Link>
               </div>
