@@ -58,8 +58,8 @@ const LoginForm: React.FC = () => {
         <Formik
           initialValues={
             {
-              email: 'saharulit2@gmail.com',
-              password: '1',
+              email: 'Admin',
+              password: 'Admin',
             } as unknown as LogInUser
           }
           validate={validateFunction}
