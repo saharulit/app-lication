@@ -1,6 +1,6 @@
-import LoginForm from "./LoginForm";
-import BigLogo from "../../assets/logo-full-white.svg";
-import Register from "./Register";
+import LoginForm from './LoginForm';
+import BigLogo from '../../assets/logo-full-white.svg';
+import Register from './Register';
 import { useLocation } from 'react-router-dom';
 
 const LoginPage = () => {
@@ -14,11 +14,11 @@ const LoginPage = () => {
         <div className="flex-shrink md:basis-1/2 flex items-center justify-center md:justify-center bg-[#181D31] h-full">
           <span className="hidden md:block"></span>
           <div className="flex flex-col items-center justify-center">
-            <img className="w-64 h-64" src={BigLogo}></img>
+            <img className="w-60" src={BigLogo}></img>
             <p className="app-color-white text-center kew-x-3">
-              {" "}
-              Stay on top of your job hunt <br /> with all your applications
-              in one place!
+              {' '}
+              Stay on top of your job hunt <br /> with all your applications in
+              one place!
             </p>
           </div>
         </div>
