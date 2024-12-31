@@ -25,7 +25,7 @@ const ToolBar: React.FC<ToolBarProps> = ({
   onAddButton,
 }) => {
   return (
-    <div className="flex flex-row w-full gap-3">
+    <div className="flex md:flex-row flex-col w-full gap-3">
       <div className="grow">
         <Input
           name="search"

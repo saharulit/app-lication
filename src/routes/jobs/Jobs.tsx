@@ -21,8 +21,13 @@ const Jobs: React.FC<{ openEditModal?: boolean }> = ({ openEditModal }) => {
   useEffect(() => {
     if (data) {
       setAppliedJobs(data);
+      fetch('https://api.logo.dev/search?q=redd', {
+        headers: {
+          Authorization: `Bearer: sk_fhQG4P6ySbK-VZby1X8QQg`,
+        },
+      });
     }
-  }, [data,activeFilters]);
+  }, [data, activeFilters]);
 
   useEffect(() => {
     console.log(activeFilters);
@@ -70,7 +75,7 @@ const Jobs: React.FC<{ openEditModal?: boolean }> = ({ openEditModal }) => {
         ) : error ? (
           <p className="text-lg text-red-500">Error loading jobs.</p>
         ) : appliedJobs.length > 0 ? (
-          <div className="flex flex-wrap gap-4">
+          <div className="flex flex-wrap gap-4 md:justify-start justify-center">
             {appliedJobs.map((job, index) => (
               <Card key={`card-${index + 1}`} {...job} />
             ))}
@@ -89,4 +94,3 @@ const Jobs: React.FC<{ openEditModal?: boolean }> = ({ openEditModal }) => {
 };
 
 export default Jobs;
-

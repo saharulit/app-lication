@@ -50,7 +50,9 @@ const LoginForm: React.FC = () => {
     <>
       <div id="login-form" className="">
         <div className="pb-16">
-          <h1 className="font-bold text-3xl">Hey there!</h1>
+          <h1 id="title" className="font-bold text-3xl">
+            Hey there!
+          </h1>
           <div className="font-semibold text-xl">
             Ready to take control of your job search?
           </div>
