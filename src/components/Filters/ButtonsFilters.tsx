@@ -22,7 +22,7 @@ const ButtonsFilters: React.FC<ButtonsFiltersProps> = ({
   onRemoveFilter,
 }) => {
   return (
-    <div>
+    <div className='flex flex-row gap-2'>
       {filters.map((filter) => (
         <Button
           key={filter.value}

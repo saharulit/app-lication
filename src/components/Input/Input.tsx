@@ -13,8 +13,8 @@ const Input: React.FC<InputProps> = ({
   ...rest
 }) => {
   return (
-    <div className="flex flex-col gap-1">
-      <label className="font-semibold">{label}</label>
+    <div className="flex flex-col">
+      {label && <label className="font-semibold pb-1">{label}</label>}
       <input
         type={type}
         placeholder={placeholder}
