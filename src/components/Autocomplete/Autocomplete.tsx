@@ -1,32 +1,37 @@
-// import { useState } from "react";
-// import Input from "../Input/Input";
+import { ReactSearchAutocomplete } from 'react-search-autocomplete';
 
-// interface AutocompleteProps {
-//   options?: { label: string, value: string }[];
-//   placeholder: string;
-// }
+interface Item {
+  id: string;
+  name: string;
+  logo?: string;
+}
 
-// export default function Autocomplete({ options, placeholder }: AutocompleteProps) {
-//   const [inputValue, setInputValue] = useState('');
-//   const [filteredOptions, setFilteredOptions] = useState(options);
+interface AutocompleteProps<T extends Item> {   
+  items: T[];
+}
 
-//   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-//     setInputValue(e.target.value);
-//     console.log(e.target.value);
-//     console.log('fire change');
-//     // setFilteredOptions(options.filter(option => option.label.toLowerCase().includes(e.target.value.toLowerCase())));
-//   }
-//   return (
-//     <>
-//     {inputValue}
-//     <Input type="text" placeholder={placeholder} onInput={handleInput}/>
-//     <div className="bg-white rounded-lg p-4">
-//       {filteredOptions?.map((option, index) => (
-//         <div key={index} className="p-2 hover:bg-gray-100 cursor-pointer">
-//           {option.label}
-//         </div>
-//       ))}
-//     </div>
-//     </>
-//   )
-// }
+export const Autocomplete = <T extends Item>({ items }: AutocompleteProps<T>) => {
+  const handleOnSelect = (item: T) => {
+    console.log('Selected item:', item);
+  };
+
+  return (
+    <div>
+      <ReactSearchAutocomplete
+        items={items}
+        onSelect={handleOnSelect}
+        autoFocus
+        formatResult={(item: T) => (
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <img
+              src={item.logo}
+              alt={item.name}
+              style={{ width: '30px', height: '30px', marginRight: '10px' }}
+            />
+            <span>{item.name}</span>
+          </div>
+        )}
+      />
+    </div>
+  );
+};
