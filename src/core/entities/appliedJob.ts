@@ -1,3 +1,5 @@
+import { Company } from "./company/company";
+
 export interface AppliedJob {
   _id?: string;
   title: string;
@@ -7,14 +9,6 @@ export interface AppliedJob {
   applicationDate?: Date;
   status: JobStatus;
   comments?: string;
-}
-
-export interface Company {
-  _id?: string;
-  userId: string; // ??
-  name: string;
-  description?: string;
-  logo?: string;
 }
 
 export enum JobStatus {

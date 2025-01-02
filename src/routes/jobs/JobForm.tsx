@@ -1,28 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Formik, Form } from 'formik';
 import Input from '../../components/Input/Input';
-import {
-  AppliedJob,
-  Company,
-  JobStatus,
-} from '../..//core/entities/appliedJob';
-
-const validateFunction = (values: AppliedJob) => {
-  const errors: Partial<AppliedJob> = {};
-  if (!values.title) {
-    errors.title = 'Required';
-  }
-  if (values.company && !values.company.name) {
-    if (!errors.company) {
-      errors.company = {
-        userId: '',
-        name: '',
-      };
-    }
-    errors.company.name = 'Required';
-  }
-  return errors as AppliedJob;
-};
+import { AppliedJob, JobStatus } from '../..//core/entities/appliedJob';
+import { Autocomplete, Item } from '../../components/Autocomplete/Autocomplete';
+import { useGetCompaniesQuery } from '../../core/api/companyApi';
+import { Company } from 'src/core/entities/company/company';
 
 interface JobFormProps {
   onSubmit: (values: AppliedJob) => void;
@@ -31,13 +13,49 @@ interface JobFormProps {
 }
 
 const JobForm: React.FC<JobFormProps> = ({ onSubmit, formikRef }) => {
+  const [companyQuery, setCompanyQuery] = useState('');
+  const { data: companies } = useGetCompaniesQuery(companyQuery);
+  const companySearch = (e) => {
+    setCompanyQuery(e);
+  };
+  const companySelection = (selectedCompany: Item) => {
+    console.log(selectedCompany);
+    // עדכון השדות של החברה ב-Formik
+    formikRef.current?.setFieldValue('company', {
+      name: selectedCompany.name,
+      description: selectedCompany.description || '',
+      domain: selectedCompany.domain || '',
+      logo: selectedCompany.iconUrl || '',
+    });
+  };
+  const validateFunction = (values: AppliedJob) => {
+    const errors: Partial<AppliedJob> = {};
+    if (!values.title) {
+      errors.title = 'Required';
+    }
+    if (values.company && !values.company.name) {
+      if (!errors.company) {
+        errors.company = {
+          name: '',
+        };
+      }
+      errors.company.name = 'Required';
+    }
+    return errors as AppliedJob;
+  };
+
   return (
     <Formik
       innerRef={formikRef}
       initialValues={
         {
           title: '',
-          company: { name: '', description: '' } as Company,
+          company: {
+            name: '',
+            description: '',
+            domain: '',
+            logo: '',
+          } as Company,
           status: JobStatus.APPLIED,
         } as unknown as AppliedJob
       }
@@ -49,12 +67,16 @@ const JobForm: React.FC<JobFormProps> = ({ onSubmit, formikRef }) => {
       {({ values, errors, touched, handleChange }) => (
         <Form>
           <div>
-            <Input
-              type="text"
-              name="company.name"
-              onChange={handleChange}
-              value={values.company.name}
-              label="Company"
+            <Autocomplete
+              items={
+                companies?.map((company) => ({
+                  ...company,
+                  iconUrl: company.logo,
+                  id: company.domain,
+                })) || ([] as Item[])
+              }
+              handleSearch={companySearch}
+              handleOnSelect={companySelection}
             />
             {errors.company?.name &&
               touched.company?.name &&
